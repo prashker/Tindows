@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="Tindows.Views.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:Behaviors="using:Template10.Behaviors"
+      xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
+      xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:controls="using:Template10.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:Tindows.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="using:Tindows.ViewModels" mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:LoginPageViewModel />
+    </Page.DataContext>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <controls:PageHeader BackButtonVisibility="Collapsed" Content="Tindows" Frame="{x:Bind Frame}">
+            <Interactivity:Interaction.Behaviors>
+                <Behaviors:EllipsisBehavior Visibility="Auto" />
+            </Interactivity:Interaction.Behaviors>
+            <controls:PageHeader.SecondaryCommands>
+            </controls:PageHeader.SecondaryCommands>
+        </controls:PageHeader>
+
+        <RelativePanel Margin="0,10" Grid.Row="1">
+            <Button x:Name="button" Content="Login with Facebook" Width="200" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"
+                    Click="{x:Bind ViewModel.facebookLogin}"/>
+            <Button x:Name="button2" Content="Secondary Button" Width="200" RelativePanel.Below="button" RelativePanel.AlignHorizontalCenterWith="button"/>
+        </RelativePanel>
+    </Grid>
+</Page>

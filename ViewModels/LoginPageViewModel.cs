@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Tindows.Externals;
 using Windows.Security.Authentication.Web;
 using Windows.UI.Xaml.Navigation;
 
@@ -18,21 +20,9 @@ namespace Tindows.ViewModels
         
         public async void facebookLogin()
         {
-            var app_id = "464891386855067";
-            var scope = "public_profile, email";
 
-            // Generate URL
-            var callbackUrl = "https://www.facebook.com/connect/login_success.html";
-            var url = "https://www.facebook.com/dialog/oauth?client_id=" + app_id +
-                        "&redirect_uri=https://www.facebook.com/connect/login_success.html" +
-                        "&scope=" + scope + "&display=popup&response_type=token";
-
-            Uri startUri = new Uri(url);
-            Uri endUri = new Uri(callbackUrl);
-
-            WebAuthenticationResult result = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, startUri, endUri);
-            // Example response:
-            // result.ReponseData = "https://www.facebook.com/connect/login_success.html#access_token=[PARSE-FOR-THIS]&expires_in=5754"
+            FBAuthTinder auth = new FBAuthTinder();
+            TinderAuthToken token = await auth.authenticateForTinder();
         }
     }
 }

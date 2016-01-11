@@ -1,6 +1,8 @@
 using System;
 using Windows.UI.Xaml;
 
+// Change the setting
+
 namespace Tindows.Services.SettingsServices
 {
     // DOCS: https://github.com/Windows-XAML/Template10/wiki/Docs-%7C-SettingsService
@@ -53,6 +55,20 @@ namespace Tindows.Services.SettingsServices
                 ApplyCacheMaxDuration(value);
             }
         }
+
+        public string XAuthToken
+        {
+            get
+            {
+                return _helper.Read<string>(nameof(XAuthToken), null);
+            }
+
+            set
+            {
+                _helper.Write<string>(nameof(XAuthToken), value);
+            }
+        }
+
     }
 }
 

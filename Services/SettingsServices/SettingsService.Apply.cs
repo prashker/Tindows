@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
+// What to do if a setting changes
+
 namespace Tindows.Services.SettingsServices
 {
     public partial class SettingsService

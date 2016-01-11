@@ -42,8 +42,7 @@ namespace Tindows.Externals
             // https://www.facebook.com/connect/login_success.html#access_token=[PARSE-FOR-THIS]&expires_in=5754
             // We need to extract the #access_token=[] portion?
 
-
-
+            // End the pattern at the first &
 
             var pattern = new System.Text.RegularExpressions.Regex("access_token=([^&]+)");
 
@@ -95,12 +94,12 @@ namespace Tindows.Externals
             return json.id;
         }
 
-        public async Task<TinderAuthToken> authenticateForTinder()
+        public async Task<TinderOAuthToken> authenticateForTinder()
         {
             var token = await getTokenFromFacebook();
             var uid = await getUidFromFacebook(token);
 
-            return new TinderAuthToken(token, uid);
+            return new TinderOAuthToken(token, uid);
         }
     }
 }

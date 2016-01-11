@@ -10,6 +10,9 @@ namespace Tindows.ViewModels
 {
     public class LoginPageViewModel : Mvvm.ViewModelBase
     {
+        Services.SettingsServices.SettingsService _settings = Services.SettingsServices.SettingsService.Instance;
+
+
         public LoginPageViewModel()
         {
         }
@@ -22,7 +25,13 @@ namespace Tindows.ViewModels
         {
 
             FBAuthTinder auth = new FBAuthTinder();
-            TinderAuthToken token = await auth.authenticateForTinder();
+            TinderOAuthToken token = await auth.authenticateForTinder();
+            TinderAPI t = new TinderAPI();
+
+            AuthRootObject o = await t.authenticateViaFacebook(token);
+
+            // Persist to settings
+            _settings.XAuthToken = o.token;
         }
     }
 }

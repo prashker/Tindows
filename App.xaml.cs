@@ -3,6 +3,7 @@ using Windows.UI.Xaml;
 using System.Threading.Tasks;
 using Tindows.Services.SettingsServices;
 using Windows.ApplicationModel.Activation;
+using System.Diagnostics;
 
 namespace Tindows
 {
@@ -26,6 +27,8 @@ namespace Tindows
             ShowShellBackButton = _settings.UseShellBackButton;
 
             #endregion
+
+            Debug.WriteLine("Token: " + _settings.XAuthToken);            
         }
 
         // runs even if restored from state

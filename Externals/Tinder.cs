@@ -27,9 +27,16 @@ namespace Tindows.Externals
     // TODO: Implement HTTP Client and calls!
     class TinderAPI
     {
+        // Headers - Spoofing Tinder Android
         private const string UserAgent = "Tinder Android Version 4.4.4";
         private const string AuthHeaderKey = "X-Auth-Token";
+        private const string AppVersion = "839";
+        private const string OSVersion = "22";
+        private const string Platform = "android";
+
+        // API
         private const string API = "https://api.gotinder.com";
+
 
         // Until we figure out how to change this?
         private const string Locale = "en";
@@ -45,6 +52,11 @@ namespace Tindows.Externals
         {
             rest = new HttpClient();
             rest.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
+
+            // Optional (for now), seems Tinder doesn't enforce these
+            rest.DefaultRequestHeaders.Add("app-version", AppVersion);
+            rest.DefaultRequestHeaders.Add("os-version", OSVersion);
+            rest.DefaultRequestHeaders.Add("platform", Platform);
         }
 
         public async Task<Authentication> authenticateViaFacebook(TinderOAuthToken fb)

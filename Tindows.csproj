@@ -98,8 +98,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Externals\FBAuthTinder.cs" />
+    <Compile Include="Externals\RestHelpers.cs" />
+    <Compile Include="Externals\Tinder Objects\Common.cs" />
+    <Compile Include="Externals\Tinder Objects\Matches.cs" />
     <Compile Include="Externals\Tinder.cs" />
-    <Compile Include="Externals\TinderClasses.cs" />
+    <Compile Include="Externals\Tinder Objects\Authentication.cs" />
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SettingsServices\ISettingsService.cs" />

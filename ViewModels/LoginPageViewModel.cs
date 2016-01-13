@@ -23,7 +23,7 @@ namespace Tindows.ViewModels
         
         public async void facebookLogin()
         {
-
+            /*
             FBAuthTinder auth = new FBAuthTinder();
             TinderOAuthToken token = await auth.authenticateForTinder();
             TinderAPI t = new TinderAPI();
@@ -32,6 +32,10 @@ namespace Tindows.ViewModels
 
             // Persist to settings
             _settings.XAuthToken = o.token;
+            */
+
+            TinderAPI t = new TinderAPI();
+            t.authenticateViaXAuthToken(_settings.XAuthToken);
         }
     }
 }

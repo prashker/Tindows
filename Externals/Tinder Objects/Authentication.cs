@@ -7,6 +7,13 @@ using System.Threading.Tasks;
 
 namespace Tindows.Externals.Tinder_Objects
 {
+    public class Authentication
+    {
+        public string token { get; set; }
+        public User user { get; set; }
+        public Versions versions { get; set; }
+        public Globals globals { get; set; }
+    }
 
     public class CategoryList
     {
@@ -95,14 +102,6 @@ namespace Tindows.Externals.Tinder_Objects
         public int moments_interval { get; set; }
         public bool fetch_connections { get; set; }
         public bool plus { get; set; }
-    }
-
-    public class Authentication
-    {
-        public string token { get; set; }
-        public User user { get; set; }
-        public Versions versions { get; set; }
-        public Globals globals { get; set; }
     }
 
 }

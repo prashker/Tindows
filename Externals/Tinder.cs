@@ -89,6 +89,24 @@ namespace Tindows.Externals
             rest.DefaultRequestHeaders.Add(AuthHeaderKey, token);
         }
 
+        public async Task<Updates> getUpdates(string last_activity_date)
+        {
+            var url = API.AppendPathSegment("updates");
+            dynamic payload = new JObject();
+            payload.last_activity_date = last_activity_date;
+
+            // POST /updates HTTP/1.1
+            HttpResponseMessage response = await rest.PostAsync(url, RestHelpers.preparePayload(payload));
+
+            if (response.IsSuccessStatusCode)
+            {
+                Updates json = await RestHelpers.responseToObject<Updates>(response);
+                return json;
+            }
+
+            return null;
+        }
+
         public async Task<Matches> getMatches()
         {
             var url = API.AppendPathSegment("recs").SetQueryParam("locale", "en");

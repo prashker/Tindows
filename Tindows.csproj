@@ -101,6 +101,7 @@
     <Compile Include="Externals\RestHelpers.cs" />
     <Compile Include="Externals\Tinder Objects\Common.cs" />
     <Compile Include="Externals\Tinder Objects\Matches.cs" />
+    <Compile Include="Externals\Tinder Objects\Message.cs" />
     <Compile Include="Externals\Tinder Objects\Updates.cs" />
     <Compile Include="Externals\Tinder.cs" />
     <Compile Include="Externals\Tinder Objects\Authentication.cs" />

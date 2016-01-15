@@ -135,5 +135,29 @@ namespace Tindows.Externals
             return null;
         }
 
+        public async Task<Message> sendMessage(string conversation_id, string content)
+        {
+            // conversation_id is merely the concatenation of:
+            // Message.to + Message.from
+            var url = API.AppendPathSegments(new string[] { "user", "matches", conversation_id });
+            dynamic payload = new JObject();
+            payload.message = content;
+
+            // POST /user/matches/{_id} HTTP/1.1
+            HttpResponseMessage response = await rest.PostAsync(url, RestHelpers.preparePayload(payload));
+
+            if (response.IsSuccessStatusCode)
+            {
+                Message json = await RestHelpers.responseToObject<Message>(response);
+                return json;
+            }
+
+            return null;
+
+
+            // Test 53b78e78c99f3a663ecfbdd9567dae32ee65654114bec761
+
+        }
+
     }
 }

@@ -95,7 +95,6 @@ namespace Tindows.Externals
 
             // Modify instance varialbes
             this.xAuthToken = token;
-            authenticated = true;
 
             // Augment HTTPClient
             rest.DefaultRequestHeaders.Add(AuthHeaderKey, token);
@@ -157,6 +156,25 @@ namespace Tindows.Externals
 
             // Test 53b78e78c99f3a663ecfbdd9567dae32ee65654114bec761
 
+        }
+
+        public async Task<Ping> setLocation(double lat, double lon)
+        {
+            var url = API.AppendPathSegments(new string[] { "user", "ping" });
+            dynamic payload = new JObject();
+            payload.lat = lat;
+            payload.lon = lon;
+
+            // POST /user/ping HTTPP/1.1
+            HttpResponseMessage response = await rest.PostAsync(url, RestHelpers.preparePayload(payload));
+
+            if (response.IsSuccessStatusCode)
+            {
+                Ping json = await RestHelpers.responseToObject<Ping>(response);
+                return json;
+            }
+
+            return null;
         }
 
     }

@@ -75,5 +75,16 @@ namespace Tindows.Externals.Tinder_Objects
         public string location_proximity { get; set; }
         public List<object> uncommon_interests { get; set; }
         public List<object> badges { get; set; }
+
+        public int Age
+        {
+            get
+            {
+                // Attempt to parse birth_date string
+                // Subtract from current year to get age
+                DateTime dt = DateTime.Parse(birth_date);
+                return DateTime.Now.Year - dt.Year;
+            }
+        }
     }
 }

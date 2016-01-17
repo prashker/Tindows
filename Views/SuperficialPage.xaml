@@ -19,7 +19,8 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="275*"/>
+            <RowDefinition Height="317*"/>
         </Grid.RowDefinitions>
 
         <controls:PageHeader BackButtonVisibility="Collapsed" Content="Logged in, get it in boi" Frame="{x:Bind Frame}">
@@ -30,10 +31,69 @@
             </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
 
-        <RelativePanel Margin="0,10" Grid.Row="1">
-            <ListView ItemsSource="{x:Bind ViewModel.m}"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </RelativePanel>
+        <Grid Grid.Row="1" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Grid.ColumnSpan="3" ManipulationMode="All" 
+                ManipulationStarted="{x:Bind ViewModel.photoDragStart}" 
+                ManipulationDelta="{x:Bind ViewModel.photoDragged}" 
+                ManipulationCompleted="{x:Bind ViewModel.photoDragEnd}" 
+                RenderTransformOrigin="0.5,0.5">
+
+                <Grid.RenderTransform>
+                    <CompositeTransform Rotation="0" TranslateX="0" TranslateY="0"/>
+                </Grid.RenderTransform>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="8*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <!-- Resize cropping of the photo, from the center out -->
+                <Border Grid.Row="0" Grid.Column="1" BorderBrush="White" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0">
+                    <Rectangle Fill="White" />
+                </Border>
+                <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image x:Name="i" Source="{x:Bind ViewModel.MainImageForContact, Mode=OneWay}" />
+                </StackPanel>
+                <Border Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="0,0,8,8" Background="White" Padding="10,0">
+                    <RelativePanel VerticalAlignment="Center">
+                        <TextBlock x:Name="test" Text="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
+                        <TextBlock x:Name="age" Text="{x:Bind ViewModel.CurrentlyReviewing.Age, Mode=OneWay}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="test" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
+                        <TextBlock x:Name="mutualfriends" Text="0F" Foreground="Red" RelativePanel.AlignRightWithPanel="True" />
+                    </RelativePanel>
+                </Border>
+            </Grid>
+
+            <Button Grid.Row="1" Grid.Column="0" x:Name="passButton" Content="Pass" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <Button Grid.Row="2" Grid.Column="1" x:Name="infoButton" Content="Info" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+            <Button Grid.Row="2" Grid.Column="2" x:Name="likeButton" Content="Like" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+
+
+
+        </Grid>
+        <!--
+        Reference for future material
+        <Popup IsOpen="True" x:Name="Popup" >
+            <Border BorderBrush="Black" BorderThickness="1" Background="LightYellow">
+                <CheckBox Content="This is a popup"/>
+            </Border>
+        </Popup>        
+        -->
+
 
     </Grid>
 </Page>

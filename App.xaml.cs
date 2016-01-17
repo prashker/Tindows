@@ -57,9 +57,11 @@ namespace Tindows
             // TODO: Actually acquire GPS coordinates
             Ping authenticated = await state.api.setLocation(45.3530996, -75.665127);
 
+
             // If authentication failed, go to Facebook Login Page
             if (authenticated == null)
             {
+                // Todo: Invalid XAuth TOAST 
                 NavigationService.Navigate(typeof(Views.LoginPage));
             }
             else

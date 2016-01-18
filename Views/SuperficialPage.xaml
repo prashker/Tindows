@@ -58,18 +58,21 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
                     <RowDefinition Height="8*" />
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
                 <!-- Resize cropping of the photo, from the center out -->
-                <Border Grid.Row="0" Grid.Column="1" BorderBrush="White" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0">
-                    <Rectangle Fill="White" />
+                <Border Grid.Row="1" Grid.Column="1" BorderBrush="White" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0" Background="White">
+                    
                 </Border>
-                <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image x:Name="i" Source="{x:Bind ViewModel.MainImageForContact, Mode=OneWay}" />
-                </StackPanel>
-                <Border Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="0,0,8,8" Background="White" Padding="10,0">
+                <Border Grid.Row="2" Grid.Column="1"  BorderBrush="White" BorderThickness="1,0,1,0" Background="White">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Image x:Name="i" Source="{x:Bind ViewModel.MainImageForContact, Mode=OneWay}" />
+                    </StackPanel>
+                </Border>
+                <Border Grid.Row="3" Grid.Column="1" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="0,0,8,8" Background="White" Padding="10,0">
                     <RelativePanel VerticalAlignment="Center">
                         <TextBlock x:Name="test" Text="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
                         <TextBlock x:Name="age" Text="{x:Bind ViewModel.CurrentlyReviewing.Age, Mode=OneWay}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="test" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />

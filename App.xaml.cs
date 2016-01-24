@@ -57,7 +57,6 @@ namespace Tindows
             // TODO: Actually acquire GPS coordinates
             Ping authenticated = await state.api.setLocation(45.3530996, -75.665127);
 
-
             // If authentication failed, go to Facebook Login Page
             if (authenticated == null)
             {
@@ -66,6 +65,11 @@ namespace Tindows
             }
             else
             {
+                // Get updates of past info :)
+
+                // Async
+                state.getInitialState();
+
                 NavigationService.Navigate(typeof(Views.SuperficialPage));
             }
         }

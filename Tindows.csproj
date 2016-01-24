@@ -101,7 +101,6 @@
     <Compile Include="Externals\RestHelpers.cs" />
     <Compile Include="Externals\Tinder Objects\Common.cs" />
     <Compile Include="Externals\Tinder Objects\Matches.cs" />
-    <Compile Include="Externals\Tinder Objects\Message.cs" />
     <Compile Include="Externals\Tinder Objects\Ping.cs" />
     <Compile Include="Externals\Tinder Objects\Updates.cs" />
     <Compile Include="Externals\Tinder.cs" />
@@ -116,9 +115,13 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="ViewModels\ConversationsPageViewModel.cs" />
     <Compile Include="ViewModels\SuperficialPageViewModel.cs" />
     <Compile Include="Views\DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConversationsPage.xaml.cs">
+      <DependentUpon>ConversationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SuperficialPage.xaml.cs">
       <DependentUpon>SuperficialPage.xaml</DependentUpon>
@@ -170,6 +173,10 @@
     <Page Include="Views\DetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConversationsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SuperficialPage.xaml">
       <Generator>MSBuild:Compile</Generator>

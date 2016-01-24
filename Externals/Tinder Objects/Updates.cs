@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Template10.Mvvm;
 
 namespace Tindows.Externals.Tinder_Objects
 {
     public class Updates
     {
-        public List<Match> matches { get; set; }
+        public ObservableCollection<Match> matches { get; set; }
         public List<string> blocks { get; set; }
-        public List<object> lists { get; set; }
-        public List<object> deleted_lists { get; set; }
+        public List<string> lists { get; set; }
+        public List<string> deleted_lists { get; set; }
         public string last_activity_date { get; set; }
     }
 
@@ -43,7 +45,7 @@ namespace Tindows.Externals.Tinder_Objects
         public List<object> badges { get; set; }
     }
 
-    public class Match
+    public class Match : BindableBase
     {
         public string _id { get; set; }
         public bool closed { get; set; }
@@ -53,7 +55,7 @@ namespace Tindows.Externals.Tinder_Objects
         public bool dead { get; set; }
         public string last_activity_date { get; set; }
         public int message_count { get; set; }
-        public List<object> messages { get; set; }
+        public List<Message> messages { get; set; }
         public List<string> participants { get; set; }
         public bool pending { get; set; }
         public bool is_super_like { get; set; }
@@ -62,5 +64,18 @@ namespace Tindows.Externals.Tinder_Objects
         public string id { get; set; }
         public Person person { get; set; }
         public string super_liker { get; set; }
+    }
+
+    // Messages all are incoming through the form of Updates:{message}
+    public class Message
+    {
+        public string _id { get; set; }
+        public string match_id { get; set; }
+        public string to { get; set; }
+        public string from { get; set; }
+        public string message { get; set; }
+        public string sent_date { get; set; }
+        public string created_date { get; set; }
+        public long timestamp { get; set; }
     }
 }

@@ -96,9 +96,11 @@
                     <Core:GoToStateAction StateName="DetailVisualState" />
                 </Core:EventTriggerBehavior>
             </Interactivity:Interaction.Behaviors>
-            <x:String>Sample</x:String>
-            <x:String>Sample</x:String>
-            <x:String>Sample</x:String>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=person.name}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Grid x:Name="MailDetail" Grid.Row="1" Grid.Column="1" Background="Black">

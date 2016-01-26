@@ -23,7 +23,7 @@
             <RowDefinition Height="317*"/>
         </Grid.RowDefinitions>
 
-        <controls:PageHeader BackButtonVisibility="Collapsed" Content="Logged in, get it in boi" Frame="{x:Bind Frame}">
+        <controls:PageHeader BackButtonVisibility="Collapsed" Content="Match Pool" Frame="{x:Bind Frame}">
             <Interactivity:Interaction.Behaviors>
                 <Behaviors:EllipsisBehavior Visibility="Auto" />
             </Interactivity:Interaction.Behaviors>

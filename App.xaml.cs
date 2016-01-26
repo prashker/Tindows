@@ -66,10 +66,8 @@ namespace Tindows
             else
             {
                 // Get updates of past info :)
-
                 // Async
                 state.getInitialState();
-
                 NavigationService.Navigate(typeof(Views.SuperficialPage));
             }
         }

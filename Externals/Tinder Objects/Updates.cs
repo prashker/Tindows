@@ -47,7 +47,9 @@ namespace Tindows.Externals.Tinder_Objects
 
     public class Match : BindableBase
     {
+        // Conversation ID between both users (OR?)
         public string _id { get; set; }
+
         public bool closed { get; set; }
         public int common_friend_count { get; set; }
         public int common_like_count { get; set; }
@@ -55,7 +57,7 @@ namespace Tindows.Externals.Tinder_Objects
         public bool dead { get; set; }
         public string last_activity_date { get; set; }
         public int message_count { get; set; }
-        public List<Message> messages { get; set; }
+        public ObservableCollection<Message> messages { get; set; }
         public List<string> participants { get; set; }
         public bool pending { get; set; }
         public bool is_super_like { get; set; }
@@ -64,6 +66,11 @@ namespace Tindows.Externals.Tinder_Objects
         public string id { get; set; }
         public Person person { get; set; }
         public string super_liker { get; set; }
+
+        public Boolean isMessage()
+        {
+            return person == null;
+        }
     }
 
     // Messages all are incoming through the form of Updates:{message}

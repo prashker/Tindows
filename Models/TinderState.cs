@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,11 @@ namespace Tindows.Models
         Updates _updates;
         public Updates Updates { get { return _updates; } set { _updates = value; } }
 
+        LocalUser _me;
+        public LocalUser Me { get { return _me; } set { _me = value; } }
+
+        private Boolean looping = false;
+
 
         static TinderState()
         {
@@ -39,7 +45,12 @@ namespace Tindows.Models
             api = new TinderAPI();
         }
 
-        public async void getInitialState()
+        public async void getProfileInfo()
+        {
+            Me = await api.me();
+        }
+
+        public async void prepareInitialState()
         {
             // Get updates starting from the beginning of time
             Updates = await api.getUpdates("");
@@ -47,17 +58,59 @@ namespace Tindows.Models
             last_activity_date = Updates.last_activity_date;
         }
 
-        public async void getLatestUpdates()
+        public async Task<Updates> getLatestUpdates()
         {
             // Call getUpdates(), update latest_update_fetch
 
             Updates temp = await api.getUpdates(last_activity_date);
             last_activity_date = temp.last_activity_date;
 
-            // Merge matches from both Updates
-            foreach (Match m in temp.matches)
+            return temp;
+        }
+
+        // Is this the right way to do this?
+        public async void startUpdatesLoop()
+        {
+            if (!looping)
             {
-                Updates.matches.Add(m);
+                looping = true;
+                while (true)
+                {
+                    // Every 3 seconds
+                    await Task.Delay(2000);
+
+                    Updates newUpdate = await getLatestUpdates();
+
+
+                    // Merge matches from both Updates
+                    // New messages are intersperced in here
+
+                    // Future: Offset to Updates.absorb()
+                    foreach (Match m in newUpdate.matches)
+                    {
+                        if (m.isMessage())
+                        {
+                            foreach (Match existing in Updates.matches)
+                            {
+                                if (existing._id == m._id)
+                                {
+                                    foreach (Message message in m.messages)
+                                    {
+                                        // Add only if the last message isn't the same
+                                        // We already add messages we send instantly
+                                        //if (existing.messages.Last()._id != message._id)
+                                        //{
+                                        //    existing.messages.Add(message);
+                                        //}
+
+                                        existing.messages.Add(message);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
             }
         }
     }

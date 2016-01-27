@@ -10,7 +10,7 @@ namespace Tindows.Externals.Tinder_Objects
     public class Authentication
     {
         public string token { get; set; }
-        public User user { get; set; }
+        public LocalUser user { get; set; }
         public Versions versions { get; set; }
         public Globals globals { get; set; }
     }
@@ -46,7 +46,7 @@ namespace Tindows.Externals.Tinder_Objects
         public int? yoffset_percent { get; set; }
     }
 
-    public class User
+    public class LocalUser
     {
         public string _id { get; set; }
         public string active_time { get; set; }

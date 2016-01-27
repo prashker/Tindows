@@ -1,4 +1,8 @@
-﻿using Tindows.ViewModels;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using Tindows.Externals.Tinder_Objects;
+using Tindows.ViewModels;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Tindows.Views

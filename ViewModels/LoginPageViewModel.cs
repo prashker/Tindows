@@ -41,7 +41,6 @@ namespace Tindows.ViewModels
 
             Ping authenticated = await state.api.setLocation(45.3530996, -75.665127);
 
-
             // If authentication failed, go to Facebook Login Page
             if (authenticated == null)
             {
@@ -50,6 +49,7 @@ namespace Tindows.ViewModels
             }
             else
             {
+                state.prepareInitialState();
                 NavigationService.Navigate(typeof(Views.SuperficialPage));
             }
         }

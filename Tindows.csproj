@@ -97,6 +97,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\NoopConverter.cs" />
     <Compile Include="Externals\FBAuthTinder.cs" />
     <Compile Include="Externals\RestHelpers.cs" />
     <Compile Include="Externals\Tinder Objects\Common.cs" />
@@ -205,11 +206,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Strings\" />
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
-      <Name>BehaviorsXamlSDKManaged</Name>
-    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -152,10 +152,6 @@ namespace Tindows.Externals
             }
 
             return null;
-
-
-            // Test 53b78e78c99f3a663ecfbdd9567dae32ee65654114bec761
-
         }
 
         public async Task<Ping> setLocation(double lat, double lon)
@@ -171,6 +167,30 @@ namespace Tindows.Externals
             if (response.IsSuccessStatusCode)
             {
                 Ping json = await RestHelpers.responseToObject<Ping>(response);
+                return json;
+            }
+
+            return null;
+        }
+
+        public async Task<LocalUser> me()
+        {
+            // Assuming we're already logged in but want our Authentication object
+
+            // Call Auth, if successful, else error 500
+            var url = API.AppendPathSegment("profile");
+
+            dynamic payload = new JObject();
+            // See line #467 of TinderPartTwo-FINAL.saz
+            payload.discoverable = true;
+
+
+            // POST /auth HTTP/1.1
+            HttpResponseMessage response = await rest.PostAsync(url, RestHelpers.preparePayload(payload));
+
+            if (response.IsSuccessStatusCode)
+            {
+                LocalUser json = await RestHelpers.responseToObject<LocalUser>(response);
                 return json;
             }
 

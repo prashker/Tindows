@@ -88,11 +88,9 @@ namespace Tindows.ViewModels
             */
 
             ObservableCollection<Message> mS = (ObservableCollection<Message>)this.ItemsSource;
-
-            this.ScrollIntoView(mS[mS.Count - 1]);
-
             
-
+            this.UpdateLayout();
+            this.ScrollIntoView(mS[mS.Count - 1]);
             base.OnItemsChanged(e);
         }
     }

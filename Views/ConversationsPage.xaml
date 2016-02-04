@@ -216,8 +216,6 @@
                             ContentTemplate="{StaticResource MessageDetailTemplate}" />-->
         </Grid>
 
-
-
     </Grid>
 
 </Page>

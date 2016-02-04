@@ -91,8 +91,10 @@ namespace Tindows.Models
                     {
                         if (m.isMessage())
                         {
-                            foreach (Match existing in Updates.matches)
+                            for (int idx = 0; idx < Updates.matches.Count; idx++)
                             {
+                                Match existing = Updates.matches[idx];
+
                                 if (existing._id == m._id)
                                 {
                                     foreach (Message message in m.messages)
@@ -106,6 +108,9 @@ namespace Tindows.Models
 
                                         existing.messages.Add(message);
                                     }
+
+                                    // Propagate the changes up in the list
+                                    Updates.matches.Move(idx, 0);
                                 }
                             }
                         }

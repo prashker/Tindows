@@ -68,6 +68,19 @@ namespace Tindows.Externals.Tinder_Objects
         public Person person { get; set; }
         public string super_liker { get; set; }
 
+        private DateTime _parsed_created_date = default(DateTime);
+        public DateTime ParsedCreatedDate
+        {
+            get
+            {
+                if (_parsed_created_date == DateTime.MinValue)
+                {
+                    _parsed_created_date = DateTime.Parse(created_date);
+                }
+                return _parsed_created_date;
+            }
+        }
+
         public Boolean isMessage()
         {
             return person == null;
@@ -81,23 +94,33 @@ namespace Tindows.Externals.Tinder_Objects
         public int CompareTo(object o)
         {
             Match other = o as Match;
-            try
+
+            // Sort order:
+            // Newest messages
+            // Newest matches
+            // Oldest Messages
+            // Oldest Matches
+
+            // Both have messages
+            // Prioritize the one with the newest messages (descending)
+            if (messages.Count > 0 && other.messages.Count > 0)
             {
-                DateTime dt_self = DateTime.Parse(messages.Last().sent_date);
-                DateTime dt_other = DateTime.Parse(other.messages.Last().sent_date);
-                return dt_other.CompareTo(dt_self);
+                return other.messages.Last().ParsedSentDate.CompareTo(messages.Last().ParsedSentDate);
             }
-            catch
+
+            // Comparing both messageless messages
+            // Prioritize created date (descending)
+            if (messages.Count == 0 && other.messages.Count == 0)
             {
-                if (messages.Count() > 0)
-                {
-                    return 1;
-                }
-                else if (other.messages.Count() > 0)
-                {
-                    return -1;
-                }
+                return other.ParsedCreatedDate.CompareTo(this.ParsedCreatedDate);
             }
+
+            // Comparing messageless messages (individual)
+            // Prioritize the one with Max(created date, latest message date)
+            if (messages.Count > 0)
+                return other.ParsedCreatedDate.CompareTo(messages.Last().ParsedSentDate);
+            else if (other.messages.Count > 0)
+                return this.ParsedCreatedDate.CompareTo(other.messages.Last().ParsedSentDate);
 
             return 0;
         }
@@ -114,5 +137,18 @@ namespace Tindows.Externals.Tinder_Objects
         public string sent_date { get; set; }
         public string created_date { get; set; }
         public long timestamp { get; set; }
+
+        private DateTime _parsed_sent_date = default(DateTime);
+        public DateTime ParsedSentDate
+        {
+            get
+            {
+                if (_parsed_sent_date == DateTime.MinValue)
+                {
+                    _parsed_sent_date = DateTime.Parse(sent_date);
+                }
+                return _parsed_sent_date;
+            }
+        }
     }
 }

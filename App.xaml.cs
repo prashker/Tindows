@@ -47,14 +47,6 @@ namespace Tindows
         // runs only when not restored from state
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
-            state.startUpdatesLoop();
-            state.startUpdatesLoop();
-            state.startUpdatesLoop();
-            state.startUpdatesLoop();
-            state.startUpdatesLoop();
-            state.startUpdatesLoop();
-
-
             // perform long-running load
             await Task.Delay(0);
 
@@ -64,8 +56,6 @@ namespace Tindows
             // Update location (and verify the login worked!)
             // TODO: Actually acquire GPS coordinates
             Ping authenticated = await state.api.setLocation(45.3530996, -75.665127);
-
-            state.getProfileInfo();
 
 
             // If authentication failed, go to Facebook Login Page
@@ -78,10 +68,11 @@ namespace Tindows
             {
                 // Get updates of past info :)
                 // Async
+                state.getProfileInfo();
+
                 state.prepareInitialState();
                 NavigationService.Navigate(typeof(Views.SuperficialPage));
             }
-
         }
     }
 

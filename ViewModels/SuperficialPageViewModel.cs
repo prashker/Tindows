@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NotificationsExtensions.Toasts;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,9 +9,11 @@ using System.Threading.Tasks;
 using Tindows.Externals;
 using Tindows.Externals.Tinder_Objects;
 using Tindows.Models;
+using Tindows.Toasts;
 using Windows.Foundation;
 using Windows.Security.Authentication.Web;
 using Windows.Storage.Streams;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -176,6 +179,8 @@ namespace Tindows.ViewModels
         {
             // Pass on the currently reviewing
             Status response = await TinderState.Instance.api.pass(CurrentlyReviewing._id);
+
+            //PassToast.Do("You passed on " + CurrentlyReviewing.name, "", "");
 
             if (m.Count > 0)
             {

@@ -170,9 +170,7 @@ namespace Tindows.ViewModels
             int upTo = 15;
 
             // Negate forEvery to make the tilt angle reversed
-            //return Math.Min(Math.Max(cumulativeDrag.X / -forEvery, -upTo), upTo);
-
-            return 0.0;
+            return Math.Min(Math.Max(cumulativeDrag.X / -forEvery, -upTo), upTo);
         }
 
         private async void passCurrent()

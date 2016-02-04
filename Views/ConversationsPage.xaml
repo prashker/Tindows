@@ -187,7 +187,7 @@
             </ListView.ItemContainerStyle>
         </vm:PersistSelectedItemListView>
 
-        <Grid x:Name="MailDetail" Grid.Row="1" Grid.Column="1">
+        <Grid x:Name="MailDetail" Grid.Row="1" Grid.Column="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="1*"/>

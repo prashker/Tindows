@@ -11,7 +11,7 @@ namespace Tindows.Externals.Tinder_Objects
 {
     public class Updates
     {
-        public SortedObservableCollection<Match> matches { get; set; }
+        public ObservableCollection<Match> matches { get; set; }
         public List<string> blocks { get; set; }
         public List<string> lists { get; set; }
         public List<string> deleted_lists { get; set; }
@@ -46,7 +46,7 @@ namespace Tindows.Externals.Tinder_Objects
         public List<object> badges { get; set; }
     }
 
-    public class Match : BindableBase, IComparable
+    public class Match : BindableBase
     {
         // Conversation ID between both users (OR?)
         public string _id { get; set; }
@@ -78,29 +78,6 @@ namespace Tindows.Externals.Tinder_Objects
             return person != null;
         }
 
-        public int CompareTo(object o)
-        {
-            Match other = o as Match;
-            try
-            {
-                DateTime dt_self = DateTime.Parse(messages.Last().sent_date);
-                DateTime dt_other = DateTime.Parse(other.messages.Last().sent_date);
-                return dt_other.CompareTo(dt_self);
-            }
-            catch
-            {
-                if (messages.Count() > 0)
-                {
-                    return 1;
-                }
-                else if (other.messages.Count() > 0)
-                {
-                    return -1;
-                }
-            }
-
-            return 0;
-        }
     }
 
     // Messages all are incoming through the form of Updates:{message}
@@ -114,5 +91,19 @@ namespace Tindows.Externals.Tinder_Objects
         public string sent_date { get; set; }
         public string created_date { get; set; }
         public long timestamp { get; set; }
+
+        private DateTime _parsed_sent_date;
+
+        public DateTime ParsedSentDate
+        {
+            get
+            {
+                if (_parsed_sent_date == null)
+                {
+                    _parsed_sent_date = DateTime.Parse(sent_date);
+                }
+                return _parsed_sent_date;
+            }
+        }
     }
 }

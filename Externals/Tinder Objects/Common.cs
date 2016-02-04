@@ -13,4 +13,9 @@ namespace Tindows.Externals.Tinder_Objects
         public int height { get; set; }
         public int width { get; set; }
     }
+
+    public class Status
+    {
+        public int status { get; set; }
+    }
 }

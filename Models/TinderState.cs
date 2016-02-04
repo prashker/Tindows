@@ -109,8 +109,9 @@ namespace Tindows.Models
                                         existing.messages.Add(message);
                                     }
 
-                                    // Propagate the changes up in the list
-                                    Updates.matches.Move(idx, 0);
+                                    // Propagate the changes up in the list if its not already at the top
+                                    if (idx != 0) 
+                                        Updates.matches.Move(idx, 0);
                                 }
                             }
                         }

@@ -15,12 +15,18 @@ namespace Tindows.ViewModels
         ObservableCollection<Match> _conversations;
         public ObservableCollection<Match> Conversations { get { return _conversations; }  set { Set(ref _conversations, value); } }
 
+        Match _prevSelected = default(Match);
         Match _selected = default(Match);
         public Match Selected
         {
-            get { return _selected; }
+            get {
+                if (_selected == null)
+                    return _prevSelected;
+                return _selected;
+            }
             set
             {
+                Set(ref _prevSelected, _selected);
                 Set(ref _selected, value);
             }
         }
@@ -79,18 +85,21 @@ namespace Tindows.ViewModels
     public class AutoScrollListBox : ListView
     {
         protected override void OnItemsChanged(object e)
-        {
-            /*
-            int newItemCount = e.NewItems.Count;
-
-            if (newItemCount > 0)
-                this.ScrollIntoView(e.NewItems[newItemCount - 1]);
-            */
-
-            ObservableCollection<Message> mS = (ObservableCollection<Message>)this.ItemsSource;
-            
+        {            
             this.UpdateLayout();
-            this.ScrollIntoView(mS[mS.Count - 1]);
+            this.ScrollIntoView(this.Items[this.Items.Count - 1]);
+            base.OnItemsChanged(e);
+        }
+
+    }
+
+    public class PersistSelectedItemListView : ListView
+    {
+        protected override void OnItemsChanged(object e)
+        {
+            this.UpdateLayout();
+            // Scroll to Top
+            this.ScrollIntoView(this.Items[0]);
             base.OnItemsChanged(e);
         }
     }

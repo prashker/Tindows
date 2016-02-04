@@ -160,7 +160,7 @@
             </CommandBar.Content>
         </CommandBar>
 
-        <ListView x:Name="MailList" Grid.Row="1"
+        <vm:PersistSelectedItemListView x:Name="MailList" Grid.Row="1"
                   Grid.Column="0" IsItemClickEnabled="False"
                   ItemsSource="{x:Bind ViewModel.Conversations, Mode=OneWay}"
                   SelectedItem="{x:Bind ViewModel.Selected, Mode=TwoWay, Converter={StaticResource NoopConverter}}">
@@ -185,7 +185,7 @@
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                 </Style>
             </ListView.ItemContainerStyle>
-        </ListView>
+        </vm:PersistSelectedItemListView>
 
         <Grid x:Name="MailDetail" Grid.Row="1" Grid.Column="1" Background="Black">
             <Grid.RowDefinitions>

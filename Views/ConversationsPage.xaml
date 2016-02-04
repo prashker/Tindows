@@ -207,7 +207,9 @@
                     <ColumnDefinition Width="4*" />
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="0" 
+                <TextBox 
+                         PreventKeyboardDisplayOnProgrammaticFocus="True"
+                         Grid.Row="0" 
                          Grid.Column="0" 
                          PlaceholderText="Enter your message ;), they're waiting!"
                          Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">

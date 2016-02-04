@@ -71,6 +71,11 @@ namespace Tindows.Externals.Tinder_Objects
         {
             return person == null;
         }
+
+        public Boolean isMatch()
+        {
+            return person != null;
+        }
     }
 
     // Messages all are incoming through the form of Updates:{message}

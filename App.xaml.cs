@@ -69,8 +69,8 @@ namespace Tindows
                 // Get updates of past info :)
                 // Async
                 state.getProfileInfo();
-
                 state.prepareInitialState();
+                state.startUpdatesLoop();
                 NavigationService.Navigate(typeof(Views.SuperficialPage));
             }
         }

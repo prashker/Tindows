@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tindows.Externals;
 using Tindows.Externals.Tinder_Objects;
+using Tindows.Toasts;
 
 namespace Tindows.Models
 {
@@ -107,6 +108,11 @@ namespace Tindows.Models
                                     }
                                 }
                             }
+                        }
+                        if (m.isMatch())
+                        {
+                            Updates.matches.Add(m);
+                            PassToast.Do("Matched!", "You have matched " + m.person.name, "Chat em up!");
                         }
                     }
 

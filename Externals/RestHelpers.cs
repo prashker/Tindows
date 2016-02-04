@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,11 @@ namespace Tindows.Externals
         public static async Task<T> responseToObject<T>(HttpResponseMessage r)
         {
             string content = await r.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(content);
+
+            return JsonConvert.DeserializeObject<T>(content, new JsonSerializerSettings()
+            { 
+                Error = HandleDeserializationError
+            });
 
             /*
             For handling invalid/unexpected responses?
@@ -38,6 +43,14 @@ namespace Tindows.Externals
                 return default(T);
             }
             */
+        }
+
+        // http://stackoverflow.com/questions/26107656/ignore-parsing-errors-during-json-net-data-parsing
+        private static void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
+        {
+            var currentError = errorArgs.ErrorContext.Error.Message;
+            // Todo: Log the errors in the global state!
+            errorArgs.ErrorContext.Handled = true;
         }
     }
 }

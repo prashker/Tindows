@@ -197,5 +197,24 @@ namespace Tindows.Externals
             return null;
         }
 
+        public async Task<Status> pass(string id_to_pass)
+        {
+            // Given the ID of the user to pass, 
+            var url = API.AppendPathSegments(new string[] { "pass", id_to_pass });
+
+            dynamic payload = new JObject();
+
+            // POST /pass/{id} HTTP/1.1
+            HttpResponseMessage response = await rest.PostAsync(url, RestHelpers.preparePayload(payload));
+
+            if (response.IsSuccessStatusCode)
+            {
+                Status json = await RestHelpers.responseToObject<Status>(response);
+                return json;
+            }
+
+            return null;
+        }
+
     }
 }

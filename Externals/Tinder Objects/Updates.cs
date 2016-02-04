@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace Tindows.Externals.Tinder_Objects
 {
     public class Updates
     {
-        public ObservableCollection<Match> matches { get; set; }
+        public SortedObservableCollection<Match> matches { get; set; }
         public List<string> blocks { get; set; }
         public List<string> lists { get; set; }
         public List<string> deleted_lists { get; set; }
@@ -45,7 +46,7 @@ namespace Tindows.Externals.Tinder_Objects
         public List<object> badges { get; set; }
     }
 
-    public class Match : BindableBase
+    public class Match : BindableBase, IComparable
     {
         // Conversation ID between both users (OR?)
         public string _id { get; set; }
@@ -75,6 +76,30 @@ namespace Tindows.Externals.Tinder_Objects
         public Boolean isMatch()
         {
             return person != null;
+        }
+
+        public int CompareTo(object o)
+        {
+            Match other = o as Match;
+            try
+            {
+                DateTime dt_self = DateTime.Parse(messages.Last().sent_date);
+                DateTime dt_other = DateTime.Parse(other.messages.Last().sent_date);
+                return dt_other.CompareTo(dt_self);
+            }
+            catch
+            {
+                if (messages.Count() > 0)
+                {
+                    return 1;
+                }
+                else if (other.messages.Count() > 0)
+                {
+                    return -1;
+                }
+            }
+
+            return 0;
         }
     }
 

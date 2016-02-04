@@ -192,9 +192,19 @@ namespace Tindows.ViewModels
             }
         }
 
-        private void likeCurrent()
+        private async void likeCurrent()
         {
-            //prepareForReview(m.Dequeue());
+
+            LikeResponse response = await TinderState.Instance.api.like(CurrentlyReviewing._id);
+
+            if (m.Count > 0)
+            {
+                prepareForReview(m.Dequeue());
+            }
+            else
+            {
+                m = await freshMeat();
+            }
         }
 
         private async Task<Queue<Result>> freshMeat()

@@ -87,4 +87,10 @@ namespace Tindows.Externals.Tinder_Objects
             }
         }
     }
+
+    public class LikeResponse
+    {
+        public Match match { get; set; }
+        public int likes_remaining { get; set; }
+    }
 }

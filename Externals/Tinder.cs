@@ -216,5 +216,21 @@ namespace Tindows.Externals
             return null;
         }
 
+        public async Task<LikeResponse> like(string id_to_like)
+        {
+            // Given the ID of the user to pass, 
+            var url = API.AppendPathSegments(new string[] { "like", id_to_like });
+
+            // POST /like/{id} HTTP/1.1
+            HttpResponseMessage response = await rest.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                LikeResponse json = await RestHelpers.responseToObject<LikeResponse>(response);
+                return json;
+            }
+
+            return null;
+        }
     }
 }

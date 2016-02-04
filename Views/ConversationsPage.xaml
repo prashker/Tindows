@@ -171,9 +171,20 @@
             </Interactivity:Interaction.Behaviors>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding person.name}" />
+                    <RelativePanel>
+                        <TextBlock x:Name="NamePar" Text="{Binding person.name}" FontFamily="Roboto" FontSize="15" />
+                        <TextBlock Foreground="Red" RelativePanel.AlignRightWithPanel="True">
+                            <Run Text="{Binding messages.Count}" />
+                            <Run Text=" ✉" />
+                        </TextBlock>
+                    </RelativePanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
 
         <Grid x:Name="MailDetail" Grid.Row="1" Grid.Column="1" Background="Black">

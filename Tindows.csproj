@@ -100,6 +100,7 @@
     <Compile Include="Converters\NoopConverter.cs" />
     <Compile Include="Externals\FBAuthTinder.cs" />
     <Compile Include="Externals\RestHelpers.cs" />
+    <Compile Include="Externals\SortedObservableCollection.cs" />
     <Compile Include="Externals\Tinder Objects\Common.cs" />
     <Compile Include="Externals\Tinder Objects\Matches.cs" />
     <Compile Include="Externals\Tinder Objects\Ping.cs" />

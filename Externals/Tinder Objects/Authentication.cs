@@ -46,6 +46,35 @@ namespace Tindows.Externals.Tinder_Objects
         public double? yoffset_percent { get; set; }
     }
 
+    public class Company
+    {
+        public bool displayed { get; set; }
+        public string name { get; set; }
+        public string id { get; set; }
+    }
+
+    public class Title
+    {
+        public bool displayed { get; set; }
+        public string name { get; set; }
+        public string id { get; set; }
+    }
+
+    public class Job
+    {
+        public Title title { get; set; }
+        public Company company { get; set; }
+    }
+
+    public class School
+    {
+        public bool displayed { get; set; }
+        public string type { get; set; }
+        public string year { get; set; }
+        public string name { get; set; }
+        public string id { get; set; }
+    }
+
     public class LocalUser
     {
         public string _id { get; set; }
@@ -67,9 +96,11 @@ namespace Tindows.Externals.Tinder_Objects
         public string ping_time { get; set; }
         public bool discoverable { get; set; }
         public List<SelfPhoto> photos { get; set; }
-        public List<string> jobs { get; set; }
-        public List<string> schools { get; set; }
-        public List<string> purchases { get; set; }
+        public List<Job> jobs { get; set; }
+        public List<School> schools { get; set; }
+
+        // This one will be hard to test since I'm not purchasing
+        public List<dynamic> purchases { get; set; }
     }
 
     public class Versions

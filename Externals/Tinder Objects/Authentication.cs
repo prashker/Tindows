@@ -43,7 +43,7 @@ namespace Tindows.Externals.Tinder_Objects
         public double? xdistance_percent { get; set; }
         public double? ydistance_percent { get; set; }
         public double? xoffset_percent { get; set; }
-        public int? yoffset_percent { get; set; }
+        public double? yoffset_percent { get; set; }
     }
 
     public class LocalUser

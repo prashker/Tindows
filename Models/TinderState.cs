@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tindows.Externals;
 using Tindows.Externals.Tinder_Objects;
+using Tindows.Services.SettingsServices;
 using Tindows.Toasts;
 
 namespace Tindows.Models
@@ -16,10 +17,12 @@ namespace Tindows.Models
     /// </summary>
     class TinderState
     {
+        Services.SettingsServices.SettingsService _settings = Services.SettingsServices.SettingsService.Instance;
+
         // Singleton
         public static TinderState Instance { get; }
 
-        private Authentication profileInfo;
+        private Authentication authenticationResult;
         public TinderAPI api { get; }
 
         // Maintain state for last time we called getUpdates()
@@ -34,6 +37,15 @@ namespace Tindows.Models
 
         private Boolean looping = false;
 
+        // Info
+        public Boolean IsAuthenticated
+        {
+            get
+            {
+                return Me != null;
+            }
+        }
+
 
         static TinderState()
         {
@@ -46,20 +58,74 @@ namespace Tindows.Models
             api = new TinderAPI();
         }
 
-        public async void getProfileInfo()
+        /// <summary>
+        /// Login via existing token in Settings
+        /// </summary>
+        /// <returns>True if login successful</returns>
+        public async Task<Boolean> loginViaSavedToken()
         {
+            // Prevent re-logging in
+            if (IsAuthenticated)
+                return false;
+
+            // Try xAuthToken, then try FB login
+            api.authenticateViaXAuthToken(_settings.XAuthToken);
+
             Me = await api.me();
+
+            if (IsAuthenticated)
+            {
+                startUpdatesLoop();
+            }
+
+            // True if authenticated, false if failed
+            return IsAuthenticated;
         }
 
-        public async void prepareInitialState()
+        /// <summary>
+        /// Login via facebook (fresh), and persist token to settings
+        /// </summary>
+        /// <returns>True if successfully logged in</returns>
+        public async Task<Boolean> loginViaFacebook()
         {
-            // Get updates starting from the beginning of time
-            Updates = await api.getUpdates("");
+            // Prevent re-logging in
+            if (IsAuthenticated)
+                return false;
 
-            last_activity_date = Updates.last_activity_date;
+            FBAuthTinder auth = new FBAuthTinder();
+            TinderOAuthToken token = null;
+            try
+            {
+                token = await auth.authenticateForTinder();
+            }
+            catch (FBAuthenticationError)
+            {
+                return false;
+            }
+
+            if (token == null)
+                return false;
+
+            authenticationResult = await api.authenticateViaFacebook(token);
+            Me = authenticationResult.user;
+
+            // Persist to settings
+            _settings.XAuthToken = authenticationResult.token;
+
+            if (IsAuthenticated)
+            {
+                startUpdatesLoop();
+            }
+
+            return IsAuthenticated;
         }
 
-        public async Task<Updates> getLatestUpdates()
+        public void logout()
+        {
+            // Todo!
+        }
+
+        private async Task<Updates> getLatestUpdates()
         {
             // Call getUpdates(), update latest_update_fetch
 
@@ -72,16 +138,21 @@ namespace Tindows.Models
         // Is this the right way to do this?
         public async void startUpdatesLoop()
         {
+            if (Updates != null)
+                return;
+
+            // Get the initial state
+            Updates = await getLatestUpdates();
+
             if (!looping)
             {
                 looping = true;
                 while (true)
                 {
                     // Every 3 seconds
-                    await Task.Delay(2000);
+                    await Task.Delay(3000);
 
                     Updates newUpdate = await getLatestUpdates();
-
 
                     // Merge matches from both Updates
                     // New messages are intersperced in here

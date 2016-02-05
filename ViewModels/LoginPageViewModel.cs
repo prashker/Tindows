@@ -13,6 +13,8 @@ namespace Tindows.ViewModels
     public class LoginPageViewModel : Mvvm.ViewModelBase
     {
         Services.SettingsServices.SettingsService _settings = Services.SettingsServices.SettingsService.Instance;
+        TinderState state = TinderState.Instance;
+
 
 
         public LoginPageViewModel()
@@ -25,31 +27,19 @@ namespace Tindows.ViewModels
         
         public async void facebookLogin()
         {
-            // TO DO UPDATE STATE, NAVIGATE TO ANOTHER PAGE
 
-            //dsoafjdsoifjsdodifjsiodjfsdoi
+            Boolean authenticated = await state.loginViaFacebook();
 
-
-            FBAuthTinder auth = new FBAuthTinder();
-            TinderOAuthToken token = await auth.authenticateForTinder();
-
-            TinderState state = TinderState.Instance;
-            Authentication o = await state.api.authenticateViaFacebook(token);
-
-            // Persist to settings
-            _settings.XAuthToken = o.token;
-
-            Ping authenticated = await state.api.setLocation(45.3530996, -75.665127);
+            //Ping authenticated = await state.api.setLocation(45.3530996, -75.665127);
 
             // If authentication failed, go to Facebook Login Page
-            if (authenticated == null)
+            if (!authenticated)
             {
                 // Todo: Invalid XAuth TOAST 
                 // NavigationService.Navigate(typeof(Views.LoginPage));
             }
             else
             {
-                state.prepareInitialState();
                 NavigationService.Navigate(typeof(Views.SuperficialPage));
             }
         }

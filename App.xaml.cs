@@ -51,7 +51,7 @@ namespace Tindows
             await Task.Delay(0);
 
             // Try to login
-            Boolean authenticated = false; //await state.loginViaSavedToken();
+            Boolean authenticated = await state.loginViaSavedToken();
 
             // If authentication failed, go to Facebook Login Page
             if (!authenticated)

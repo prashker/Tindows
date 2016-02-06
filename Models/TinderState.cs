@@ -141,8 +141,9 @@ namespace Tindows.Models
             if (Updates != null)
                 return;
 
-            // Get the initial state
-            Updates = await getLatestUpdates();
+            // Set the initial state, without propagating the updates
+            Updates = new Updates();
+            Updates.absorb(await getLatestUpdates(), true);
 
             if (!looping)
             {
@@ -150,49 +151,14 @@ namespace Tindows.Models
                 while (true)
                 {
                     // Every 3 seconds
-                    await Task.Delay(3000);
+                    await Task.Delay(5000);
 
                     Updates newUpdate = await getLatestUpdates();
 
                     // Merge matches from both Updates
                     // New messages are intersperced in here
 
-                    // Future: Offset to Updates.absorb()
-                    foreach (Match m in newUpdate.matches)
-                    {
-                        if (m.isMessage())
-                        {
-                            for (int idx = 0; idx < Updates.matches.Count; idx++)
-                            {
-                                Match existing = Updates.matches[idx];
-
-                                if (existing._id == m._id)
-                                {
-                                    foreach (Message message in m.messages)
-                                    {
-                                        // Add only if the last message isn't the same
-                                        // We already add messages we send instantly
-                                        //if (existing.messages.Last()._id != message._id)
-                                        //{
-                                        //    existing.messages.Add(message);
-                                        //}
-
-                                        existing.messages.Add(message);
-                                    }
-
-                                    // Propagate the changes up in the list if its not already at the top
-                                    if (idx != 0) 
-                                        Updates.matches.Move(idx, 0);
-                                }
-                            }
-                        }
-                        if (m.isMatch())
-                        {
-                            Updates.matches.Add(m);
-                            PassToast.Do("Matched!", "You have matched " + m.person.name, "Chat em up!");
-                        }
-                    }
-
+                    Updates.absorb(newUpdate, false);
                 }
             }
         }

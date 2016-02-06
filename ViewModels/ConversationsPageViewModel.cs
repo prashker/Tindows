@@ -87,7 +87,8 @@ namespace Tindows.ViewModels
         protected override void OnItemsChanged(object e)
         {            
             this.UpdateLayout();
-            this.ScrollIntoView(this.Items[this.Items.Count - 1]);
+            if (this.Items.Count > 0)
+                this.ScrollIntoView(this.Items[this.Items.Count - 1]);
             base.OnItemsChanged(e);
         }
 
@@ -99,7 +100,8 @@ namespace Tindows.ViewModels
         {
             this.UpdateLayout();
             // Scroll to Top
-            this.ScrollIntoView(this.Items[0]);
+            if (this.Items.Count > 0)
+             this.ScrollIntoView(this.Items[0]);
             base.OnItemsChanged(e);
         }
     }

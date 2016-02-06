@@ -19,5 +19,10 @@ namespace Tindows.Views
 
         // strongly-typed view models enable x:bind
         public ConversationsPageViewModel ViewModel => this.DataContext as ConversationsPageViewModel;
+
+        private void TindowsChat_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Debug.WriteLine("g222o");
+        }
     }
 }

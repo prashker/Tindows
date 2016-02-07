@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Template10.Mvvm;
 using Tindows.Externals;
 using Tindows.Externals.Tinder_Objects;
 using Tindows.Services.SettingsServices;
@@ -15,7 +16,7 @@ namespace Tindows.Models
     /// Singleton class for maintaining state for the entire application :)
     /// Copies singleton logic from Template10 convention
     /// </summary>
-    class TinderState
+    public class TinderState : BindableBase
     {
         Services.SettingsServices.SettingsService _settings = Services.SettingsServices.SettingsService.Instance;
 
@@ -23,7 +24,9 @@ namespace Tindows.Models
         public static TinderState Instance { get; }
 
         private Authentication authenticationResult;
-        public TinderAPI api { get; }
+
+        private TinderAPI _api { get; }
+        public TinderAPI Api { get; }
 
         // Maintain state for last time we called getUpdates()
         private string last_activity_date = "";
@@ -33,16 +36,33 @@ namespace Tindows.Models
         public Updates Updates { get { return _updates; } set { _updates = value; } }
 
         LocalUser _me;
-        public LocalUser Me { get { return _me; } set { _me = value; } }
+        public LocalUser Me
+        {
+            get
+            {
+                return _me;
+            }
+            set
+            {
+                Set(ref _me, value);
+
+                // Set authenticated based off this :)
+                IsAuthenticated = value != null;
+            }
+        }
 
         private Boolean looping = false;
 
-        // Info
+        Boolean _isAuthenticated;
         public Boolean IsAuthenticated
         {
             get
             {
-                return Me != null;
+                return _isAuthenticated;
+            }
+            set
+            {
+                Set(ref _isAuthenticated, value);
             }
         }
 
@@ -55,7 +75,7 @@ namespace Tindows.Models
 
         private TinderState()
         {
-            api = new TinderAPI();
+            Api = new TinderAPI();
         }
 
         /// <summary>
@@ -69,9 +89,9 @@ namespace Tindows.Models
                 return false;
 
             // Try xAuthToken, then try FB login
-            api.authenticateViaXAuthToken(_settings.XAuthToken);
+            Api.authenticateViaXAuthToken(_settings.XAuthToken);
 
-            Me = await api.me();
+            Me = await Api.me();
 
             if (IsAuthenticated)
             {
@@ -106,7 +126,7 @@ namespace Tindows.Models
             if (token == null)
                 return false;
 
-            authenticationResult = await api.authenticateViaFacebook(token);
+            authenticationResult = await Api.authenticateViaFacebook(token);
             Me = authenticationResult.user;
 
             // Persist to settings
@@ -129,7 +149,7 @@ namespace Tindows.Models
         {
             // Call getUpdates(), update latest_update_fetch
 
-            Updates temp = await api.getUpdates(last_activity_date);
+            Updates temp = await Api.getUpdates(last_activity_date);
             last_activity_date = temp.last_activity_date;
 
             return temp;

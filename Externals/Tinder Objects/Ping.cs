@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tindows.Externals.Tinder_Objects
 {
-    class Ping
+    public class Ping
     {
         public double lat { get; set; }
         public double lon { get; set; }

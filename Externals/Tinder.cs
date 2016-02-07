@@ -12,7 +12,7 @@ using Tindows.Externals.Tinder_Objects;
 
 namespace Tindows.Externals
 {
-    class TinderOAuthToken
+    public class TinderOAuthToken
     {
         public string facebook_token { get; }
         public string facebook_uid { get; }
@@ -25,7 +25,7 @@ namespace Tindows.Externals
     }
 
     // TODO: Implement HTTP Client and calls!
-    class TinderAPI
+    public class TinderAPI
     {
         // Headers - Spoofing Tinder Android
         private const string UserAgent = "Tinder Android Version 4.4.4";

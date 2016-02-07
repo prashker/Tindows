@@ -52,6 +52,7 @@ namespace Tindows
 
             // Try to login
             Boolean authenticated = await state.loginViaSavedToken();
+            //Boolean authenticated = false;
 
             // If authentication failed, go to Facebook Login Page
             if (!authenticated)

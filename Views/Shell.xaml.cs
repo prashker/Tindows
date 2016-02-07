@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Template10.Common;
 using Template10.Controls;
 using Template10.Services.NavigationService;
+using Tindows.Models;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
@@ -23,6 +24,11 @@ namespace Tindows.Views
         public bool IsBusy { get; set; } = false;
         public string BusyText { get; set; } = "Please wait...";
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public TinderState State
+        {
+            get { return TinderState.Instance; }
+        }
 
         public static void SetBusy(bool busy, string text = null)
         {

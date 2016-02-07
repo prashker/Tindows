@@ -54,7 +54,7 @@ namespace Tindows.ViewModels
             // Construct a message
             // Augment the Collection<Message>
 
-            Message response = await TinderState.Instance.api.sendMessage(Selected._id, Text);
+            Message response = await TinderState.Instance.Api.sendMessage(Selected._id, Text);
             //Selected.messages.Add(response);
             Text = "";
         }

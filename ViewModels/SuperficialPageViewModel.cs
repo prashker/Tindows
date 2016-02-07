@@ -176,7 +176,7 @@ namespace Tindows.ViewModels
         private async void passCurrent()
         {
             // Pass on the currently reviewing
-            Status response = await TinderState.Instance.api.pass(CurrentlyReviewing._id);
+            Status response = await TinderState.Instance.Api.pass(CurrentlyReviewing._id);
 
             //PassToast.Do("You passed on " + CurrentlyReviewing.name, "", "");
 
@@ -193,7 +193,7 @@ namespace Tindows.ViewModels
         private async void likeCurrent()
         {
 
-            LikeResponse response = await TinderState.Instance.api.like(CurrentlyReviewing._id);
+            LikeResponse response = await TinderState.Instance.Api.like(CurrentlyReviewing._id);
 
             if (m.Count > 0)
             {
@@ -208,7 +208,7 @@ namespace Tindows.ViewModels
         private async Task<Queue<Result>> freshMeat()
         {
             // Get new matches
-            Matches matches = await TinderState.Instance.api.getMatches();
+            Matches matches = await TinderState.Instance.Api.getMatches();
             return new Queue<Result>(matches.results);
         }
 

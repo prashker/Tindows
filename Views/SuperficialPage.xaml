@@ -38,60 +38,71 @@
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="8*" />
                 <RowDefinition Height="2*" />
-                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Grid.ColumnSpan="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="8*" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
+            <Pivot Grid.Row="0" Grid.ColumnSpan="3">
+                <PivotItem Header="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay, FallbackValue='No More To Review'}">
+                    <Grid Grid.Row="0" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="8*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
 
-                <!-- Resize cropping of the photo, from the center out -->
+                        <!-- Resize cropping of the photo, from the center out -->
 
-                <Grid Grid.Column="1" Grid.Row="1"
+                        <Grid Grid.Column="1" Grid.Row="1"
                        ManipulationMode="All" 
                        ManipulationStarted="{x:Bind ViewModel.photoDragStart}" 
                        ManipulationDelta="{x:Bind ViewModel.photoDragged}" 
                        ManipulationCompleted="{x:Bind ViewModel.photoDragEnd}" 
                        RenderTransformOrigin="0.5,0.5">
-                    <Grid.RenderTransform>
-                        <CompositeTransform Rotation="0" TranslateX="0" TranslateY="0"/>
-                    </Grid.RenderTransform>
-                    
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="8*" />
-                        <RowDefinition Height="1*" />
-                    </Grid.RowDefinitions>
+                            <Grid.RenderTransform>
+                                <CompositeTransform Rotation="0" TranslateX="0" TranslateY="0"/>
+                            </Grid.RenderTransform>
 
-                    <Border Grid.Row="0" Grid.Column="1" BorderBrush="White" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0" Background="White">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
 
-                    </Border>
-                    <Border Grid.Row="1" Grid.Column="1"  BorderBrush="White" BorderThickness="1,0,1,0" Background="White">
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Image x:Name="i" Source="{x:Bind ViewModel.MainImageForContact, Mode=OneWay}" />
-                        </StackPanel>
-                    </Border>
-                    <Border Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="0,0,8,8" Background="White" Padding="10,0">
-                        <RelativePanel VerticalAlignment="Center">
-                            <TextBlock x:Name="test" Text="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
-                            <TextBlock x:Name="age" Text="{x:Bind ViewModel.CurrentlyReviewing.Age, Mode=OneWay}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="test" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
-                            <TextBlock x:Name="mutualfriends" Text="0F" Foreground="Red" RelativePanel.AlignRightWithPanel="True" />
-                        </RelativePanel>
-                    </Border>
-                </Grid>
-            </Grid>
+                            <Border Grid.Row="0" Grid.Column="1" BorderBrush="White" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0" Background="White">
+
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="1"  BorderBrush="White" BorderThickness="1,0,1,0" Background="White">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image x:Name="i" Source="{x:Bind ViewModel.MainImageForContact, Mode=OneWay}" />
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="0,0,8,8" Background="White" Padding="10,0">
+                                <RelativePanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="test" Text="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
+                                    <TextBlock x:Name="age" Text="{x:Bind ViewModel.CurrentlyReviewing.Age, Mode=OneWay}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="test" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
+                                    <TextBlock x:Name="mutualfriends" Text="0F" Foreground="Red" RelativePanel.AlignRightWithPanel="True" />
+                                </RelativePanel>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </PivotItem>
+                <PivotItem Header="Bio and Pics" Padding="0"
+                       ContentTemplate="{StaticResource MatchDetails}"
+                       Content="{x:Bind ViewModel.CurrentlyReviewing, Mode=OneWay}">
+                </PivotItem>
+            </Pivot>
 
             <Button Grid.Row="1" Grid.Column="0" x:Name="passButton" Content="Pass" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-            <Button Grid.Row="2" Grid.Column="1" x:Name="infoButton" Content="Info" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+            <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
+                <Button Content="Info" HorizontalAlignment="Stretch" />
+                <Button Content="Super Like &lt;3" HorizontalAlignment="Stretch" />
+            </StackPanel>
             <Button Grid.Row="2" Grid.Column="2" x:Name="likeButton" Content="Like" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
 
 

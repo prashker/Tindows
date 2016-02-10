@@ -10,8 +10,7 @@
       xmlns:local="using:Tindows.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:Tindows.ViewModels" mc:Ignorable="d"
-      xmlns:gif="using:XamlAnimatedGif"
-      xmlns:models="using:Tindows.Externals.Tinder_Objects">
+      xmlns:gif="using:XamlAnimatedGif">
 
 
     <Page.DataContext>
@@ -245,114 +244,9 @@
                             ContentTemplate="{StaticResource MessageDetailTemplate}" />-->
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Bio and Pics" Padding="0" DataContext="{x:Bind ViewModel.SelectedAdvanced, Mode=OneWay}">
-                <PivotItem.ContentTemplate>
-                    <DataTemplate x:DataType="models:Result">
-                        <ScrollViewer>
-                            <StackPanel>
-                                
-                                <Border Background="{ThemeResource CustomColorBrush}" Padding="15">
-                                    <TextBlock Text="Basic Info" Foreground="{ThemeResource ContrastColorBrush}" />
-                                </Border>
-                                
-                                <TextBlock>
-                                    <Run Text="Name: " />
-                                    <Run Text="{x:Bind name, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text="Distance: " />
-                                    <Run Text="{x:Bind distance_mi, Mode=OneWay}" />
-                                    <Run Text=" miles/km"/>
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text="Last Active: " />
-                                    <Run Text="{x:Bind ping_time, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text="Gender: " />
-                                    <Run Text="{x:Bind gender, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text="Backend (ID): " />
-                                    <Run Text="{x:Bind _id, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text="Age: " />
-                                    <Run Text="{x:Bind Age, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text="Biography: " />
-                                    <Run Text="{x:Bind bio, Mode=OneWay}" />
-                                </TextBlock>
-                                <TextBlock>
-                                    <Run Text="Was this a superlike?: " />
-                                    <Run Text="{x:Bind is_super_like, Mode=OneWay}" />
-                                </TextBlock>
-
-                                <Border Background="{ThemeResource CustomColorBrush}" Padding="15">
-                                    <TextBlock Text="Employment/Education Info" Foreground="{ThemeResource ContrastColorBrush}" />
-                                </Border>
-
-                                <ListView ItemsSource="{x:Bind jobs}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="models:Job">
-                                            <TextBlock>
-                                                <Run Text="{x:Bind title.name, FallbackValue=Employee, TargetNullValue=Employee}"/>
-                                                <Run Text=" at " />
-                                                <Run Text="{x:Bind company.name, FallbackValue='Unspecified Employer', TargetNullValue='Unspecified Employer'}" />
-                                            </TextBlock>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-
-                                <ListView ItemsSource="{x:Bind schools}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="models:School">
-                                            <TextBlock>
-                                                <Run Text="{x:Bind type, TargetNullValue=Student, FallbackValue=Student}"/>
-                                                <Run Text=" at "/>
-                                                <Run Text="{x:Bind name, TargetNullValue=School, FallbackValue=School}"/>
-                                                <Run Text="("/>
-                                                <Run Text="{x:Bind year, TargetNullValue=20XX, FallbackValue=20XX}"/>
-                                                <Run Text=")"/>
-                                            </TextBlock>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-
-                                <Border Background="{ThemeResource CustomColorBrush}" Padding="15">
-                                    <TextBlock Text="Photos" Foreground="{ThemeResource ContrastColorBrush}" />
-                                </Border>
-                                
-                                <ListView ItemsSource="{x:Bind photos}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="models:Photo">
-                                            <Image Source="{x:Bind url}" />
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-
-                                <Border Background="{ThemeResource CustomColorBrush}" Padding="15">
-                                    <TextBlock Text="Instagram" Foreground="{ThemeResource ContrastColorBrush}" />
-                                </Border>
-
-                                <TextBlock>
-                                    <Run Text="Username: " />
-                                    <Run Text="{x:Bind instagram.username, Mode=OneWay}" />
-                                </TextBlock>
-
-                                <ListView ItemsSource="{x:Bind instagram.photos}">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="models:InstagramPhotos">
-                                            <Image Source="{x:Bind image}" />
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-
-                            </StackPanel>
-                        </ScrollViewer>
-                    </DataTemplate>
-                </PivotItem.ContentTemplate>
+            <PivotItem Header="Bio and Pics" Padding="0"
+                       ContentTemplate="{StaticResource MatchDetails}"
+                       Content="{x:Bind ViewModel.SelectedAdvanced, Mode=OneWay}">
             </PivotItem>
         </Pivot>
 

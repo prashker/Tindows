@@ -209,6 +209,12 @@ namespace Tindows.ViewModels
         {
             // Get new matches
             Matches matches = await TinderState.Instance.Api.getMatches();
+
+            if (matches == null)
+            {
+                return new Queue<Result>();
+            }
+
             return new Queue<Result>(matches.results);
         }
 

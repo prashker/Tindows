@@ -83,10 +83,26 @@ namespace Tindows.Externals.Tinder_Objects
 
     }
 
+    public class SuperLikes
+    {
+        public int remaining { get; set; }
+        public int allotment { get; set; }
+        public string resets_at { get; set; }
+    }
+
     public class LikeResponse
     {
         public Match match { get; set; }
         public int likes_remaining { get; set; }
+        public SuperLikes super_likes { get; set; } // If response was a superlike
+
+        public Boolean IsSuperLike
+        {
+            get
+            {
+                return super_likes != null;
+            }
+        }
     }
 
     // When calling /user/{id}

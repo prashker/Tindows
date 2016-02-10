@@ -61,6 +61,20 @@ namespace Tindows.ViewModels
             }
         }
 
+        // Maintain the information on superlikes
+        private SuperLikes _superLikeStats;
+        private SuperLikes SuperLikeStats
+        {
+            get
+            {
+                return _superLikeStats;
+            }
+            set
+            {
+                Set(ref _superLikeStats, value);
+            }
+        }
+
         //public ObservableCollection<Result> m = new ObservableCollection<Result>() ;x       
 
         public SuperficialPageViewModel()
@@ -128,7 +142,7 @@ namespace Tindows.ViewModels
                 else if (m == PhotoPosition.OffscreenTop)
                 {
                     e.Complete();
-                    // Todo: Super Like
+                    superlikeCurrent();
                 }
                 else if (m == PhotoPosition.OffscreenRight)
                 {
@@ -173,28 +187,38 @@ namespace Tindows.ViewModels
             return Math.Min(Math.Max(cumulativeDrag.X / -forEvery, -upTo), upTo);
         }
 
-        private async void passCurrent()
+        public async void passCurrent()
         {
             // Pass on the currently reviewing
             Status response = await TinderState.Instance.Api.pass(CurrentlyReviewing._id);
 
             //PassToast.Do("You passed on " + CurrentlyReviewing.name, "", "");
 
-            if (m.Count > 0)
-            {
-                prepareForReview(m.Dequeue());
-            }
-            else
-            {
-                m = await freshMeat();
-            }
+            next();
         }
 
-        private async void likeCurrent()
+        public async void likeCurrent()
         {
 
             LikeResponse response = await TinderState.Instance.Api.like(CurrentlyReviewing._id);
 
+            next();
+        }
+
+        public async void superlikeCurrent()
+        {
+            LikeResponse response = await TinderState.Instance.Api.superlike(CurrentlyReviewing._id);
+
+            if (response.IsSuperLike)
+            {
+                SuperLikeStats = response.super_likes;
+            }
+
+            next();
+        }
+
+        private async void next()
+        {
             if (m.Count > 0)
             {
                 prepareForReview(m.Dequeue());

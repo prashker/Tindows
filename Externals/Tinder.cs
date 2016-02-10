@@ -221,8 +221,28 @@ namespace Tindows.Externals
             // Given the ID of the user to like, 
             var url = API.AppendPathSegments(new string[] { "like", id_to_like });
 
-            // POST /like/{id} HTTP/1.1
+            // GET /like/{id} HTTP/1.1
             HttpResponseMessage response = await rest.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                LikeResponse json = await RestHelpers.responseToObject<LikeResponse>(response);
+                return json;
+            }
+
+            return null;
+        }
+
+        public async Task<LikeResponse> superlike(string id_to_like)
+        {
+            // Given the ID of the user to like, 
+            var url = API.AppendPathSegments(new string[] { "like", id_to_like, "super"});
+
+            dynamic payload = new JObject();
+
+            // POST /like/{id}/super HTTP/1.1
+            // Why the superlike is a POST and like is GET, we'll never know!
+            HttpResponseMessage response = await rest.PostAsync(url, RestHelpers.preparePayload(payload));
 
             if (response.IsSuccessStatusCode)
             {

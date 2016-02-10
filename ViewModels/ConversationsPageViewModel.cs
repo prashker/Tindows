@@ -47,8 +47,8 @@ namespace Tindows.ViewModels
         }
 
         // Advanced information about a selected user
-        Result _selectedAdvanced;
-        public Result SelectedAdvanced
+        AdvancedMatchInfo _selectedAdvanced;
+        public AdvancedMatchInfo SelectedAdvanced
         {
             get
             {

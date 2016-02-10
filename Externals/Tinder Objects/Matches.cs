@@ -10,7 +10,7 @@ namespace Tindows.Externals.Tinder_Objects
     public class Matches
     {
         public int status { get; set; }
-        public List<Result> results { get; set; }
+        public List<AdvancedMatchInfo> results { get; set; }
     }
 
     public class Teaser
@@ -42,7 +42,7 @@ namespace Tindows.Externals.Tinder_Objects
     }
 
     // This is a "queue" match
-    public class Result
+    public class AdvancedMatchInfo
     {
         public int distance_mi { get; set; }
         public List<object> common_connections { get; set; }
@@ -106,10 +106,10 @@ namespace Tindows.Externals.Tinder_Objects
     }
 
     // When calling /user/{id}
-    // Returns a Result object in a small status wrapper
+    // Returns a AdvancedMatchInfo object in a small status wrapper
     public class MoreInfoResponse
     {
         public int status { get; set; }
-        public Result results { get; set; }
+        public AdvancedMatchInfo results { get; set; }
     }
 }

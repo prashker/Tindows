@@ -36,7 +36,7 @@ namespace Tindows.ViewModels
         public Matches matches { get; set; }
 
         // Model for View
-        public Queue<Result> m = new Queue<Result>();
+        public Queue<AdvancedMatchInfo> m = new Queue<AdvancedMatchInfo>();
 
         // Downloaded image for the main reviewed contact
         private ImageSource _mainImageForContact;
@@ -50,8 +50,8 @@ namespace Tindows.ViewModels
             }
         }
 
-        private Result _currentlyReviewing;
-        public Result CurrentlyReviewing
+        private AdvancedMatchInfo _currentlyReviewing;
+        public AdvancedMatchInfo CurrentlyReviewing
         {
             get { return _currentlyReviewing; }
             set
@@ -75,7 +75,7 @@ namespace Tindows.ViewModels
             }
         }
 
-        //public ObservableCollection<Result> m = new ObservableCollection<Result>() ;x       
+        //public ObservableCollection<AdvancedMatchInfo> m = new ObservableCollection<AdvancedMatchInfo>() ;x       
 
         public SuperficialPageViewModel()
         {
@@ -90,7 +90,7 @@ namespace Tindows.ViewModels
             prepareForReview(m.Dequeue());
         }
 
-        private void prepareForReview(Result r)
+        private void prepareForReview(AdvancedMatchInfo r)
         {
             // Given a candidate, prepare ViewModel for review
 
@@ -98,7 +98,7 @@ namespace Tindows.ViewModels
             CurrentlyReviewing = r;
         }
 
-        private async void setMatchPhotos(Result match)
+        private async void setMatchPhotos(AdvancedMatchInfo match)
         {
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(match.photos[0].url);
@@ -229,17 +229,17 @@ namespace Tindows.ViewModels
             }
         }
 
-        private async Task<Queue<Result>> freshMeat()
+        private async Task<Queue<AdvancedMatchInfo>> freshMeat()
         {
             // Get new matches
             Matches matches = await TinderState.Instance.Api.getMatches();
 
             if (matches == null)
             {
-                return new Queue<Result>();
+                return new Queue<AdvancedMatchInfo>();
             }
 
-            return new Queue<Result>(matches.results);
+            return new Queue<AdvancedMatchInfo>(matches.results);
         }
 
         private PhotoPosition getPhotoPosition(Grid g)

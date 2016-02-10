@@ -253,7 +253,7 @@ namespace Tindows.Externals
             return null;
         }
 
-        public async Task<Result> getAdvancedProfile(string id_of_user)
+        public async Task<AdvancedMatchInfo> getAdvancedProfile(string id_of_user)
         {
             // Given the ID of the user to like, 
             var url = API.AppendPathSegments(new string[] { "user", id_of_user });

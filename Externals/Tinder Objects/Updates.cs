@@ -115,7 +115,7 @@ namespace Tindows.Externals.Tinder_Objects
         public string shape { get; set; }
     }
 
-    public class Person
+    public class SimpleMatchInfo
     {
         public string _id { get; set; }
         public string bio { get; set; }
@@ -146,7 +146,7 @@ namespace Tindows.Externals.Tinder_Objects
         public bool following { get; set; }
         public bool following_moments { get; set; }
         public string id { get; set; }
-        public Person person { get; set; }
+        public SimpleMatchInfo person { get; set; }
         public string super_liker { get; set; }
 
         // New

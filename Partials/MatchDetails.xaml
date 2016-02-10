@@ -5,7 +5,7 @@
     xmlns:local="using:Tindows.Partials"
     xmlns:models="using:Tindows.Externals.Tinder_Objects">
 
-    <DataTemplate x:Key="MatchDetails" x:DataType="models:Result">
+    <DataTemplate x:Key="MatchDetails" x:DataType="models:AdvancedMatchInfo">
         <ScrollViewer>
             <StackPanel>
                 <Border Background="{ThemeResource CustomColorBrush}" Padding="15">

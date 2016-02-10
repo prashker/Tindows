@@ -218,7 +218,7 @@ namespace Tindows.Externals
 
         public async Task<LikeResponse> like(string id_to_like)
         {
-            // Given the ID of the user to pass, 
+            // Given the ID of the user to like, 
             var url = API.AppendPathSegments(new string[] { "like", id_to_like });
 
             // POST /like/{id} HTTP/1.1
@@ -232,5 +232,25 @@ namespace Tindows.Externals
 
             return null;
         }
+
+        public async Task<Result> getAdvancedProfile(string id_of_user)
+        {
+            // Given the ID of the user to like, 
+            var url = API.AppendPathSegments(new string[] { "user", id_of_user });
+
+            // POST /user/{id} HTTP/1.1
+            HttpResponseMessage response = await rest.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                MoreInfoResponse json = await RestHelpers.responseToObject<MoreInfoResponse>(response);
+                return json.results;
+            }
+
+            return null;
+        }
+
+        // getCommonConnections()
+        // To Be Determined
     }
 }

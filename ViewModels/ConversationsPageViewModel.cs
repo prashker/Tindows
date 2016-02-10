@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Tindows.Externals.Tinder_Objects;
 using Tindows.Models;
 using Windows.UI.Xaml;
@@ -26,9 +27,42 @@ namespace Tindows.ViewModels
             }
             set
             {
+                // May get fired too often
+                // http://stackoverflow.com/questions/16194211/2-way-binding-in-wpf-calls-property-twice
+
+                // Do not fire events if value == selected
+
+                if (_selected == value)
+                {
+                    return;
+                }
+
+
                 Set(ref _prevSelected, _selected);
                 Set(ref _selected, value);
+
+                // Async
+                fetchAdvancedProfileForSelected(value);
             }
+        }
+
+        // Advanced information about a selected user
+        Result _selectedAdvanced;
+        public Result SelectedAdvanced
+        {
+            get
+            {
+                return _selectedAdvanced;
+            }
+            set
+            {
+                Set(ref _selectedAdvanced, value);
+            }
+        }
+
+        public async void fetchAdvancedProfileForSelected(Match m)
+        {
+            SelectedAdvanced = await TinderState.Instance.Api.getAdvancedProfile(m.person._id);
         }
 
         string _text = default(string);

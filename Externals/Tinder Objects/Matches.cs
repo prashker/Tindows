@@ -87,4 +87,12 @@ namespace Tindows.Externals.Tinder_Objects
         public Match match { get; set; }
         public int likes_remaining { get; set; }
     }
+
+    // When calling /user/{id}
+    // Returns a Result object in a small status wrapper
+    public class MoreInfoResponse
+    {
+        public int status { get; set; }
+        public Result results { get; set; }
+    }
 }

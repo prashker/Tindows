@@ -11,6 +11,14 @@
                 <ResourceDictionary>
                     <converters:NoopConverter x:Key="NoopConverter" />
                 </ResourceDictionary>
+                <ResourceDictionary>
+                    <DataTemplate x:Key="MatchDetails">
+                        <StackPanel>
+                            <TextBlock Text="{Binding person.name}" />
+                            <Button x:Name="button2" Content="Secondary Button" Width="200" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

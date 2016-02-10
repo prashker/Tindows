@@ -10,7 +10,8 @@
       xmlns:local="using:Tindows.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:vm="using:Tindows.ViewModels" mc:Ignorable="d"
-      xmlns:gif="using:XamlAnimatedGif">
+      xmlns:gif="using:XamlAnimatedGif"
+      xmlns:models="using:Tindows.Externals.Tinder_Objects">
 
 
     <Page.DataContext>
@@ -18,6 +19,9 @@
     </Page.DataContext>
 
     <Page.Resources>
+        <DataTemplate x:Name="Bob">
+            
+        </DataTemplate>
         <DataTemplate x:Name="FromTemplate">
             <Grid>
                 <Grid x:Name="FromBubble" HorizontalAlignment="Right" Margin="0" VerticalAlignment="Top">
@@ -200,47 +204,71 @@
             </ListView.ItemContainerStyle>
         </vm:PersistSelectedItemListView>
 
-        <Grid x:Name="MailDetail" Grid.Row="1" Grid.Column="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-            <vm:AutoScrollListBox Background="Transparent" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="TindowsChat"
+        <Pivot x:Name="MailDetail" Grid.Row="1" Grid.Column="1">
+            <PivotItem Header="{x:Bind ViewModel.Selected.person.name, Mode=OneWay, FallbackValue='No Contact Selected'}">
+                <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <vm:AutoScrollListBox Background="Transparent" Grid.Row="0" ScrollViewer.VerticalScrollBarVisibility="Auto" x:Name="TindowsChat"
                      ItemTemplateSelector="{StaticResource ChatBubbleTemplateSelector}"
                      ItemsSource="{x:Bind ViewModel.Selected.messages, Mode=OneWay}">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                        <Setter Property="IsHitTestVisible" Value="False"></Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </vm:AutoScrollListBox>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
-                <TextBox 
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                <Setter Property="IsHitTestVisible" Value="False"></Setter>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                    </vm:AutoScrollListBox>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox 
                          PreventKeyboardDisplayOnProgrammaticFocus="True"
                          Grid.Row="0" 
                          Grid.Column="0" 
                          PlaceholderText="Enter your message ;), they're waiting!"
                          Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                    <Interactivity:Interaction.Behaviors>
-                        <Behaviors:TextBoxEnterKeyBehavior>
-                            <Core:CallMethodAction MethodName="sendMessage" TargetObject="{x:Bind ViewModel}" />
-                        </Behaviors:TextBoxEnterKeyBehavior>
-                        <Core:EventTriggerBehavior>
-                            <Behaviors:FocusAction/>
-                        </Core:EventTriggerBehavior>
-                    </Interactivity:Interaction.Behaviors>
-                </TextBox>
-                <Button Grid.Row="0" Grid.Column="1" x:Name="sendButton" Content="➢ Send " HorizontalAlignment="Stretch" FontFamily="Segoe UI Symbol" FontSize="21.333"
+                            <Interactivity:Interaction.Behaviors>
+                                <Behaviors:TextBoxEnterKeyBehavior>
+                                    <Core:CallMethodAction MethodName="sendMessage" TargetObject="{x:Bind ViewModel}" />
+                                </Behaviors:TextBoxEnterKeyBehavior>
+                                <Core:EventTriggerBehavior>
+                                    <Behaviors:FocusAction/>
+                                </Core:EventTriggerBehavior>
+                            </Interactivity:Interaction.Behaviors>
+                        </TextBox>
+                        <Button Grid.Row="0" Grid.Column="1" x:Name="sendButton" Content="➢ Send " HorizontalAlignment="Stretch" FontFamily="Segoe UI Symbol" FontSize="21.333"
                         Click="{x:Bind ViewModel.sendMessage}"/>
-            </Grid>
-            <!--<ContentControl xmlns:m="using:Sample.Models" Content="{Binding Selected}" 
+                    </Grid>
+                    <!--<ContentControl xmlns:m="using:Sample.Models" Content="{Binding Selected}" 
                             ContentTemplate="{StaticResource MessageDetailTemplate}" />-->
-        </Grid>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Bio and Pics" Padding="0" DataContext="{x:Bind ViewModel.Selected, Mode=OneWay}">
+                <PivotItem.ContentTemplate>
+                    <DataTemplate x:DataType="models:Match">
+                        <ScrollViewer>
+                            <StackPanel>
+                                <TextBlock Text="{x:Bind person.bio, Mode=OneWay}" />
+                                <ListView ItemsSource="{x:Bind person.photos}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="models:Photo">
+                                            <Image Source="{x:Bind url}" />
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                                <Button Content="Secondary Button" Width="200" />
+                            </StackPanel>
+                        </ScrollViewer>
+                    </DataTemplate>
+                </PivotItem.ContentTemplate>
+                <!--ContentTemplate="{StaticResource MatchDetails}"-->
+            </PivotItem>
+        </Pivot>
 
     </Grid>
 

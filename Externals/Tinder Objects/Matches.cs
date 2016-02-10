@@ -13,13 +13,6 @@ namespace Tindows.Externals.Tinder_Objects
         public List<Result> results { get; set; }
     }
 
-    public class PhotosOfMatch
-    {
-        public string id { get; set; }
-        public string url { get; set; }
-        public List<ProcessedFile> processedFiles { get; set; }
-    }
-
     public class Teaser
     {
         // "string" not valid variable name
@@ -48,6 +41,7 @@ namespace Tindows.Externals.Tinder_Objects
         public bool completed_initial_fetch { get; set; }
     }
 
+    // This is a "queue" match
     public class Result
     {
         public int distance_mi { get; set; }
@@ -62,11 +56,11 @@ namespace Tindows.Externals.Tinder_Objects
         public int gender { get; set; }
         public string name { get; set; }
         public string ping_time { get; set; }
-        public List<PhotosOfMatch> photos { get; set; }
+        public List<Photo> photos { get; set; }
         public bool is_traveling { get; set; }
         public bool is_super_like { get; set; }
-        public List<object> jobs { get; set; }
-        public List<object> schools { get; set; }
+        public List<Job> jobs { get; set; }
+        public List<School> schools { get; set; }
         public Teaser teaser { get; set; }
         public string birth_date_info { get; set; }
         public Instagram instagram { get; set; }

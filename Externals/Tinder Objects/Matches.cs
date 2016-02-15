@@ -11,6 +11,7 @@ namespace Tindows.Externals.Tinder_Objects
     {
         public int status { get; set; }
         public List<AdvancedMatchInfo> results { get; set; }
+        public string message { get; set; }
     }
 
     public class Teaser

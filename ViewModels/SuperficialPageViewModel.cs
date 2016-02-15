@@ -189,6 +189,9 @@ namespace Tindows.ViewModels
 
         public async void passCurrent()
         {
+            if (CurrentlyReviewing == null)
+                return;
+
             // Pass on the currently reviewing
             Status response = await TinderState.Instance.Api.pass(CurrentlyReviewing._id);
 
@@ -199,6 +202,8 @@ namespace Tindows.ViewModels
 
         public async void likeCurrent()
         {
+            if (CurrentlyReviewing == null)
+                return;
 
             LikeResponse response = await TinderState.Instance.Api.like(CurrentlyReviewing._id);
 
@@ -207,6 +212,9 @@ namespace Tindows.ViewModels
 
         public async void superlikeCurrent()
         {
+            if (CurrentlyReviewing == null)
+                return;
+
             LikeResponse response = await TinderState.Instance.Api.superlike(CurrentlyReviewing._id);
 
             if (response.IsSuperLike)
@@ -234,7 +242,7 @@ namespace Tindows.ViewModels
             // Get new matches
             Matches matches = await TinderState.Instance.Api.getMatches();
 
-            if (matches == null)
+            if (matches == null || matches.message != null)
             {
                 return new Queue<AdvancedMatchInfo>();
             }

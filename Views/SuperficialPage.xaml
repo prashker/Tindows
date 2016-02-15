@@ -79,7 +79,7 @@
                             </Border>
                             <Border Grid.Row="1" Grid.Column="1"  BorderBrush="White" BorderThickness="1,0,1,0" Background="White">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image x:Name="i" Source="{x:Bind ViewModel.MainImageForContact, Mode=OneWay}" />
+                                    <Image x:Name="i" Source="{x:Bind ViewModel.MainImageUrl, Mode=OneWay}" />
                                 </StackPanel>
                             </Border>
                             <Border Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="0,0,8,8" Background="White" Padding="10,0">

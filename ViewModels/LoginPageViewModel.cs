@@ -44,7 +44,7 @@ namespace Tindows.ViewModels
             }
         }
 
-        public async void facebookLogout()
+        public void facebookLogout()
         {
             state.logout();
         }

@@ -38,15 +38,20 @@ namespace Tindows.ViewModels
         // Model for View
         public Queue<AdvancedMatchInfo> m = new Queue<AdvancedMatchInfo>();
 
-        // Downloaded image for the main reviewed contact
-        private ImageSource _mainImageForContact;
-        public ImageSource MainImageForContact
+        // Image for the main reviewed contact
+        // Needs to only be a URL, resolves issue #1
+        // https://github.com/prashker/Tindows/issues/1
+        private string _mainImageUrlForContact = "ms-appx:///Assets/LoadingMatches.png";
+        public string MainImageUrl
         {
-            get { return _mainImageForContact; }
+            get
+            {
+                return _mainImageUrlForContact;
+            }
             set
             {
-                Set(ref _mainImageForContact, value);
-                RaisePropertyChanged(nameof(MainImageForContact));
+                Set(ref _mainImageUrlForContact, value);
+                RaisePropertyChanged(nameof(MainImageUrl));
             }
         }
 
@@ -86,30 +91,7 @@ namespace Tindows.ViewModels
         {
             m = await freshMeat();
 
-            // Prepare the first :)
-            prepareForReview(m.Dequeue());
-        }
-
-        private void prepareForReview(AdvancedMatchInfo r)
-        {
-            // Given a candidate, prepare ViewModel for review
-
-            setMatchPhotos(r);
-            CurrentlyReviewing = r;
-        }
-
-        private async void setMatchPhotos(AdvancedMatchInfo match)
-        {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync(match.photos[0].url);
-            byte[] img = await response.Content.ReadAsByteArrayAsync();
-            InMemoryRandomAccessStream randomAccessStream = new InMemoryRandomAccessStream();
-            DataWriter writer = new DataWriter(randomAccessStream.GetOutputStreamAt(0));
-            writer.WriteBytes(img);
-            await writer.StoreAsync();
-            BitmapImage b = new BitmapImage();
-            b.SetSource(randomAccessStream);
-            MainImageForContact = b;
+            next();
         }
 
         public void photoDragStart(object sender, ManipulationStartedRoutedEventArgs e)
@@ -229,7 +211,12 @@ namespace Tindows.ViewModels
         {
             if (m.Count > 0)
             {
-                prepareForReview(m.Dequeue());
+                // Given a candidate, prepare ViewModel for review
+                AdvancedMatchInfo r = m.Dequeue();
+
+                if (r.photos.Count > 0)
+                    MainImageUrl = r.photos[0].url;
+                CurrentlyReviewing = r;
             }
             else
             {

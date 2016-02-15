@@ -147,6 +147,7 @@ namespace Tindows.Models
             IsAuthenticated = false;
             Api = new TinderAPI();
             _settings.XAuthToken = null;
+            looping = false;
         }
 
         private async Task<Updates> getLatestUpdates()
@@ -177,12 +178,15 @@ namespace Tindows.Models
                     // Every 3 seconds
                     await Task.Delay(5000);
 
-                    Updates newUpdate = await getLatestUpdates();
+                    if (looping)
+                    {
+                        Updates newUpdate = await getLatestUpdates();
 
-                    // Merge matches from both Updates
-                    // New messages are intersperced in here
+                        // Merge matches from both Updates
+                        // New messages are intersperced in here
 
-                    Updates.absorb(newUpdate, false);
+                        Updates.absorb(newUpdate, false);
+                    }
                 }
             }
         }

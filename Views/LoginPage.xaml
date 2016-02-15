@@ -33,7 +33,8 @@
         <RelativePanel Margin="0,10" Grid.Row="1">
             <Button x:Name="button" Content="Login with Facebook" Width="200" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"
                     Click="{x:Bind ViewModel.facebookLogin}"/>
-            <Button x:Name="button2" Content="Secondary Button" Width="200" RelativePanel.Below="button" RelativePanel.AlignHorizontalCenterWith="button"/>
+            <Button x:Name="button2" Content="Secondary Button" Width="200" RelativePanel.Below="button" RelativePanel.AlignHorizontalCenterWith="button"
+                    Click="{x:Bind ViewModel.facebookLogout}"/>
         </RelativePanel>
     </Grid>
 </Page>

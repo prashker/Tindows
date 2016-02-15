@@ -25,8 +25,7 @@ namespace Tindows.Models
 
         private Authentication authenticationResult;
 
-        private TinderAPI _api { get; }
-        public TinderAPI Api { get; }
+        public TinderAPI Api { get; set; }
 
         // Maintain state for last time we called getUpdates()
         private string last_activity_date = "";
@@ -85,7 +84,7 @@ namespace Tindows.Models
         public async Task<Boolean> loginViaSavedToken()
         {
             // Prevent re-logging in
-            if (IsAuthenticated)
+            if (IsAuthenticated || _settings.XAuthToken == null)
                 return false;
 
             // Try xAuthToken, then try FB login
@@ -142,7 +141,12 @@ namespace Tindows.Models
 
         public void logout()
         {
-            // Todo!
+            // Unauthenticate
+            // New API
+            // Reset XAuthToken
+            IsAuthenticated = false;
+            Api = new TinderAPI();
+            _settings.XAuthToken = null;
         }
 
         private async Task<Updates> getLatestUpdates()

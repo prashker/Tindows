@@ -43,5 +43,10 @@ namespace Tindows.ViewModels
                 NavigationService.Navigate(typeof(Views.SuperficialPage));
             }
         }
+
+        public async void facebookLogout()
+        {
+            state.logout();
+        }
     }
 }

@@ -88,7 +88,6 @@ namespace Tindows.Externals.Tinder_Objects
         public int connection_count { get; set; }
         public int distance_filter { get; set; }
         public string full_name { get; set; }
-        public List<string> groups { get; set; }
         public int gender { get; set; }
         public int gender_filter { get; set; }
         public List<Interest> interests { get; set; }
@@ -101,7 +100,39 @@ namespace Tindows.Externals.Tinder_Objects
 
         // This one will be hard to test since I'm not purchasing
         public List<dynamic> purchases { get; set; }
+
+        // New
+        public List<string> friends { get; set; }
+        public List<Group> groups { get; set; }
+        public List<string> high_school { get; set; }
+        public List<int> interested_in { get; set; }
+        public string latest_update_date { get; set; }
+        public Location location { get; set; }
+        public Pos pos { get; set; }
+        public object pos_major { get; set; }
+        public bool promoted_out_of_date { get; set; }
     }
+
+    public class Pos
+    {
+        public double lat { get; set; }
+        public double lon { get; set; }
+    }
+
+    public class Location
+    {
+        public string name { get; set; }
+        public string id { get; set; }
+    }
+
+    public class Group
+    {
+        public string key { get; set; }
+        public string type { get; set; }
+        public string sub_type { get; set; }
+        public string id { get; set; }
+    }
+
 
     public class Versions
     {

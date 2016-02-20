@@ -79,7 +79,7 @@
                             </Border>
                             <Border Grid.Row="1" Grid.Column="1"  BorderBrush="White" BorderThickness="1,0,1,0" Background="White">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Image x:Name="i" Source="{x:Bind ViewModel.MainImageUrl, Mode=OneWay}" />
+                                    <Image Source="{x:Bind ViewModel.CurrentlyReviewing.photos[0].url, Mode=OneWay, FallbackValue='ms-appx:///Assets/LoadingMatches.png', TargetNullValue='ms-appx:///Assets/LoadingMatches.png'}" />
                                 </StackPanel>
                             </Border>
                             <Border Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="0,0,8,8" Background="White" Padding="10,0">
@@ -88,6 +88,35 @@
                                     <TextBlock x:Name="age" Text="{x:Bind ViewModel.CurrentlyReviewing.Age, Mode=OneWay}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="test" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
                                     <TextBlock x:Name="mutualfriends" Foreground="Red" RelativePanel.AlignRightWithPanel="True">
                                         <Run Text="{x:Bind ViewModel.CurrentlyReviewing.connection_count, Mode=OneWay}" />
+                                        <Run Text=" Mutual Friends" />
+                                    </TextBlock>
+                                </RelativePanel>
+                            </Border>
+                        </Grid>
+                        <Grid x:Name="NextInLine" Grid.Column="1" Grid.Row="1" Canvas.ZIndex="-10" RenderTransformOrigin="0.5,0.5" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False">
+                            <Grid.RenderTransform>
+                                <CompositeTransform Rotation="7"/>
+                            </Grid.RenderTransform>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Grid.Column="1" BorderBrush="White" BorderThickness="1,1,1,0" CornerRadius="8,8,0,0" Background="White">
+
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="1"  BorderBrush="White" BorderThickness="1,0,1,0" Background="White">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Source="{x:Bind ViewModel.NextInLine.photos[0].url, Mode=OneWay, FallbackValue='ms-appx:///Assets/LoadingMatches.png', TargetNullValue='ms-appx:///Assets/LoadingMatches.png'}" />
+                                </StackPanel>
+                            </Border>
+                            <Border Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="0,0,8,8" Background="White" Padding="10,0">
+                                <RelativePanel VerticalAlignment="Center">
+                                    <TextBlock x:Name="PREtest" Text="{x:Bind ViewModel.NextInLine.name, Mode=OneWay}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
+                                    <TextBlock x:Name="PREage" Text="{x:Bind ViewModel.NextInLine.Age, Mode=OneWay}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="PREtest" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
+                                    <TextBlock x:Name="PREmutualfriends" Foreground="Red" RelativePanel.AlignRightWithPanel="True">
+                                        <Run Text="{x:Bind ViewModel.NextInLine.connection_count, Mode=OneWay}" />
                                         <Run Text=" Mutual Friends" />
                                     </TextBlock>
                                 </RelativePanel>

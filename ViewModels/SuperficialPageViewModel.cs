@@ -66,6 +66,18 @@ namespace Tindows.ViewModels
             }
         }
 
+        // Always maintain the second person also, to display what is coming next
+        private AdvancedMatchInfo _nextInLine;
+        public AdvancedMatchInfo NextInLine
+        {
+            get { return _nextInLine; }
+            set
+            {
+                Set(ref _nextInLine, value);
+                RaisePropertyChanged(nameof(NextInLine));
+            }
+        }
+
         // Maintain the information on superlikes
         private SuperLikes _superLikeStats;
         private SuperLikes SuperLikeStats
@@ -212,11 +224,16 @@ namespace Tindows.ViewModels
             if (m.Count > 0)
             {
                 // Given a candidate, prepare ViewModel for review
-                AdvancedMatchInfo r = m.Dequeue();
+                CurrentlyReviewing = m.Dequeue();
 
-                if (r.photos.Count > 0)
-                    MainImageUrl = r.photos[0].url;
-                CurrentlyReviewing = r;
+                // Prepare next in line
+                if (m.Count > 0) {
+                    NextInLine = m.Dequeue();
+                }
+                else
+                {
+                    NextInLine = null;
+                }
             }
             else
             {

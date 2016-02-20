@@ -64,7 +64,7 @@ namespace Tindows.Externals.Tinder_Objects
 
                     if (!silent)
                     {
-                        PassToast.Do("Matched!", "You have matched " + m.person.name, "Chat em up!");
+                        NewMatchToast.Do(m);
                     }
                 }
                 // Case 2 - New messages for exisiting user

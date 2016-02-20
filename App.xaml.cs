@@ -77,6 +77,10 @@ namespace Tindows
                         // args.args = conversation_id
                         NavigationService.Navigate(typeof(Views.ConversationsPage), args.args);
                     }
+                    else if (args.source == typeof(NewMatchToast).ToString())
+                    {
+                        NavigationService.Navigate(typeof(Views.ConversationsPage), args.args);
+                    }
                 }
                 else
                 {

@@ -112,4 +112,58 @@ namespace Tindows.Toasts
         }
 
     }
+
+    static class NewMatchToast
+    {
+        public static void Do(Match fromWho)
+        {
+            ToastVisual visual = new ToastVisual()
+            {
+                TitleText = new ToastText()
+                {
+                    Text = "Matched!"
+                },
+            };
+
+            visual.BodyTextLine1 = new ToastText()
+            {
+                Text = "You have matched " + fromWho.person.name
+            };
+
+            visual.BodyTextLine2 = new ToastText()
+            {
+                Text = "Chat em up!"
+            };
+
+            // Pass a payload as JSON to the Toast
+            dynamic payload = new JObject();
+            payload.source = typeof(NewMatchToast).ToString();
+            payload.args = fromWho._id;
+
+            string payload_json = payload.ToString();
+
+            ToastContent toastContent = new ToastContent()
+            {
+                Visual = visual,
+                Audio = null,
+                Actions = new ToastActionsCustom()
+                {
+                    Buttons =
+                    {
+                        new ToastButton("Go to Match", payload_json)
+                        {
+                            ActivationType = ToastActivationType.Foreground,
+                        },
+                        new ToastButtonDismiss()
+                    }
+                },
+                Launch = payload_json
+            };
+
+            var toast = new ToastNotification(toastContent.GetXml());
+
+            ToastNotificationManager.CreateToastNotifier().Show(toast);
+        }
+
+    }
 }

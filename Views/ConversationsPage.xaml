@@ -226,6 +226,7 @@
                          Grid.Row="0" 
                          Grid.Column="0" 
                          PlaceholderText="Enter your message ;), they're waiting!"
+                         TextWrapping="Wrap"
                          Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <Interactivity:Interaction.Behaviors>
                                 <Behaviors:TextBoxEnterKeyBehavior>

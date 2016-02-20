@@ -160,7 +160,7 @@
             <ColumnDefinition x:Name="RightColumn" />
         </Grid.ColumnDefinitions>
 
-        <CommandBar Grid.ColumnSpan="2" Background="LightGray">
+        <controls:PageHeader Grid.ColumnSpan="2" Text="Conversations">
             <CommandBar.Content>
                 <AppBarButton x:Name="BackButton" Icon="Back"
                               IsEnabled="True" Visibility="Collapsed">
@@ -171,7 +171,7 @@
                     </Interactivity:Interaction.Behaviors>
                 </AppBarButton>
             </CommandBar.Content>
-        </CommandBar>
+        </controls:PageHeader>
 
         <vm:PersistSelectedItemListView x:Name="MailList" Grid.Row="1"
                   Grid.Column="0" IsItemClickEnabled="False"

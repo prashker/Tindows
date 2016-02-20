@@ -184,8 +184,17 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <RelativePanel>
-                        <TextBlock x:Name="NamePar" Text="{Binding person.name}" FontFamily="Roboto" FontSize="15" />
-                        <TextBlock Foreground="Red" RelativePanel.AlignRightWithPanel="True">
+                        <Ellipse x:Name="ContactPhoto" Width="50" Height="50">
+                            <Ellipse.Fill>
+                                <ImageBrush>
+                                    <ImageBrush.ImageSource>
+                                        <BitmapImage UriSource="{Binding person.photos[0].url}" />
+                                    </ImageBrush.ImageSource>
+                                </ImageBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock Text="{Binding person.name}" FontFamily="Roboto" FontSize="15" RelativePanel.AlignVerticalCenterWithPanel="True" RelativePanel.AlignRightWith="" RelativePanel.RightOf="ContactPhoto" Margin="5,0,0,0" />
+                        <TextBlock Foreground="Red" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
                             <Run Text="{Binding messages.Count}" />
                             <Run Text=" ✉" />
                         </TextBlock>

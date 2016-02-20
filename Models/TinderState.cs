@@ -148,6 +148,8 @@ namespace Tindows.Models
             Api = new TinderAPI();
             _settings.XAuthToken = null;
             looping = false;
+            last_activity_date = "";
+            Updates = null;
         }
 
         private async Task<Updates> getLatestUpdates()

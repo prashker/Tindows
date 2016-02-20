@@ -200,9 +200,9 @@
             </ListView.ItemContainerStyle>
         </vm:PersistSelectedItemListView>
 
-        <Pivot x:Name="MailDetail" Grid.Row="1" Grid.Column="1">
+        <Pivot Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MailDetail" Grid.Row="1" Grid.Column="1">
             <PivotItem Header="{x:Bind ViewModel.Selected.person.name, Mode=OneWay, FallbackValue='No Contact Selected'}">
-                <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="1*"/>

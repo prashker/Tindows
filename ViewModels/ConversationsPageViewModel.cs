@@ -14,7 +14,16 @@ namespace Tindows.ViewModels
     public class ConversationsPageViewModel : Mvvm.ViewModelBase
     {
         ObservableCollection<Match> _conversations;
-        public ObservableCollection<Match> Conversations { get { return _conversations; }  set { Set(ref _conversations, value); } }
+        public ObservableCollection<Match> Conversations {
+            get {
+                return _conversations;
+            }
+            set {
+                Set(ref _conversations, value);
+            }
+        }
+
+        public string preselected_id = null;
 
         Match _prevSelected = default(Match);
         Match _selected = default(Match);
@@ -78,8 +87,14 @@ namespace Tindows.ViewModels
 
         public ConversationsPageViewModel()
         {
-            _conversations = TinderState.Instance.Updates.matches;
-            Debug.WriteLine("loaded each time u initialize?");
+            fetch(null);
+        }
+
+        public void fetch(string conversation_id)
+        {
+            if (Conversations == null)
+                Conversations = TinderState.Instance.Updates.matches;
+            findAndSelectConversation(conversation_id);
         }
 
         public async void sendMessage()
@@ -91,6 +106,21 @@ namespace Tindows.ViewModels
             Message response = await TinderState.Instance.Api.sendMessage(Selected._id, Text);
             //Selected.messages.Add(response);
             Text = "";
+        }
+
+        public void findAndSelectConversation(string conversation_id)
+        {
+            if (conversation_id != null)
+            {
+                foreach (Match m in Conversations)
+                {
+                    if (m._id == conversation_id)
+                    {
+                        Selected = m;
+                        break;
+                    }
+                }
+            }
         }
 
     }

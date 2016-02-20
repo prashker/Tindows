@@ -24,20 +24,7 @@ namespace Tindows.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // If we passed a conversation_id to this, navigate straight to it, if possible
-
-            string open_directly = e.Parameter?.ToString();
-
-            if (open_directly != null)
-            {
-                foreach (Match m in ViewModel.Conversations)
-                {
-                    if (m._id == open_directly)
-                    {
-                        ViewModel.Selected = m;
-                        break;
-                    }
-                }
-            }
+            ViewModel.fetch(e.Parameter?.ToString());
         }
 
     }

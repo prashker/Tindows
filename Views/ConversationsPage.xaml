@@ -124,7 +124,6 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="BackButton.Visibility" Value="Visible" />
-                        <Setter Target="MailDetail.Visibility" Value="Collapsed" />
                         <Setter Target="MailDetail.(Grid.Column)" Value="0" />
                         <Setter Target="MailList.IsItemClickEnabled" Value="True" />
                         <Setter Target="LeftColumn.Width" Value="*" />
@@ -200,7 +199,7 @@
             </ListView.ItemContainerStyle>
         </vm:PersistSelectedItemListView>
 
-        <Pivot Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MailDetail" Grid.Row="1" Grid.Column="1">
+        <Pivot Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MailDetail" Grid.Row="1" Grid.Column="1" >
             <PivotItem Header="{x:Bind ViewModel.Selected.person.name, Mode=OneWay, FallbackValue='No Contact Selected'}">
                 <Grid>
                     <Grid.RowDefinitions>

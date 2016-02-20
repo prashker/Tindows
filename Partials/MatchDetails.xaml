@@ -38,7 +38,7 @@
                      <Run Text="{x:Bind Age, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock>
-                     <Run Text="Biography: \n" />
+                     <Run Text="Biography:" />
                      <Run Text="{x:Bind bio, Mode=OneWay}" />
                 </TextBlock>
                 <TextBlock>

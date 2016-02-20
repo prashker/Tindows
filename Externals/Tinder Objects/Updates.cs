@@ -205,7 +205,7 @@ namespace Tindows.Externals.Tinder_Objects
             if (messages.Count > 0)
                 return other.ParsedCreatedDate.CompareTo(messages.Last().ParsedSentDate);
             else if (other.messages.Count > 0)
-                return this.ParsedCreatedDate.CompareTo(other.messages.Last().ParsedSentDate);
+                return other.messages.Last().ParsedSentDate.CompareTo(this.ParsedCreatedDate);
 
             return 0;
         }

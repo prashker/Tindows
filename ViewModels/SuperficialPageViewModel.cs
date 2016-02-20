@@ -38,23 +38,6 @@ namespace Tindows.ViewModels
         // Model for View
         public Queue<AdvancedMatchInfo> m = new Queue<AdvancedMatchInfo>();
 
-        // Image for the main reviewed contact
-        // Needs to only be a URL, resolves issue #1
-        // https://github.com/prashker/Tindows/issues/1
-        private string _mainImageUrlForContact = "ms-appx:///Assets/LoadingMatches.png";
-        public string MainImageUrl
-        {
-            get
-            {
-                return _mainImageUrlForContact;
-            }
-            set
-            {
-                Set(ref _mainImageUrlForContact, value);
-                RaisePropertyChanged(nameof(MainImageUrl));
-            }
-        }
-
         private AdvancedMatchInfo _currentlyReviewing;
         public AdvancedMatchInfo CurrentlyReviewing
         {
@@ -80,7 +63,7 @@ namespace Tindows.ViewModels
 
         // Maintain the information on superlikes
         private SuperLikes _superLikeStats;
-        private SuperLikes SuperLikeStats
+        public SuperLikes SuperLikeStats
         {
             get
             {
@@ -199,6 +182,7 @@ namespace Tindows.ViewModels
             if (CurrentlyReviewing == null)
                 return;
 
+            // Todo: Hold onto the response for other UI related stuff (ex: showing likes remaining)
             LikeResponse response = await TinderState.Instance.Api.like(CurrentlyReviewing._id);
 
             next();

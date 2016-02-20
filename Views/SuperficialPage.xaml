@@ -134,7 +134,15 @@
             <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
                 <Button Click="{x:Bind ViewModel.superlikeCurrent}" Content="Super Like &lt;3" HorizontalAlignment="Stretch" />
             </StackPanel>
-            <Button Click="{x:Bind ViewModel.likeCurrent}" Grid.Row="2" Grid.Column="2" x:Name="likeButton" Content="Like" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <Button Click="{x:Bind ViewModel.likeCurrent}" Grid.Row="2" Grid.Column="2" x:Name="likeButton" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                <TextBlock>
+                    <Run Text="Like" />
+                    <!--
+                    <Run Text="{x:Bind ViewModel.LastLikeResponse.likes_remaining, Mode=OneWay}" />
+                    <Run Text="remaining" />
+                    -->
+                </TextBlock>
+            </Button>
 
 
 

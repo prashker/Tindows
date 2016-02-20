@@ -86,7 +86,10 @@
                                 <RelativePanel VerticalAlignment="Center">
                                     <TextBlock x:Name="test" Text="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
                                     <TextBlock x:Name="age" Text="{x:Bind ViewModel.CurrentlyReviewing.Age, Mode=OneWay}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="test" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
-                                    <TextBlock x:Name="mutualfriends" Text="0F" Foreground="Red" RelativePanel.AlignRightWithPanel="True" />
+                                    <TextBlock x:Name="mutualfriends" Foreground="Red" RelativePanel.AlignRightWithPanel="True">
+                                        <Run Text="{x:Bind ViewModel.CurrentlyReviewing.connection_count, Mode=OneWay}" />
+                                        <Run Text=" Mutual Friends" />
+                                    </TextBlock>
                                 </RelativePanel>
                             </Border>
                         </Grid>

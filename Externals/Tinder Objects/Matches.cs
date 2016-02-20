@@ -42,11 +42,26 @@ namespace Tindows.Externals.Tinder_Objects
         public bool completed_initial_fetch { get; set; }
     }
 
+    public class CommonConnectionPhoto
+    {
+        public string small { get; set; }
+        public string medium { get; set; }
+        public string large { get; set; }
+    }
+
+    public class CommonConnection
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public CommonConnectionPhoto photo { get; set; }
+        public int degree { get; set; }
+    }
+
     // This is a "queue" match
     public class AdvancedMatchInfo
     {
         public int distance_mi { get; set; }
-        public List<object> common_connections { get; set; }
+        public List<CommonConnection> common_connections { get; set; }
         public int connection_count { get; set; }
         public List<object> common_likes { get; set; }
         public List<object> common_interests { get; set; }

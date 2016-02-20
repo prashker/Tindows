@@ -1,4 +1,5 @@
-﻿using NotificationsExtensions.Toasts;
+﻿using Newtonsoft.Json.Linq;
+using NotificationsExtensions.Toasts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,10 +81,29 @@ namespace Tindows.Toasts
                 Text = textForToastTruncated + "..."
             };
 
+            // Pass a payload as JSON to the Toast
+            dynamic payload = new JObject();
+            payload.source = typeof(NewMessageToast).ToString();
+            payload.args = fromWho._id;
+
+            string payload_json = payload.ToString();
+        
             ToastContent toastContent = new ToastContent()
             {
                 Visual = visual,
-                Audio = null
+                Audio = null,
+                Actions = new ToastActionsCustom()
+                {
+                    Buttons =
+                    {
+                        new ToastButton("Go to Message", payload_json)
+                        {
+                            ActivationType = ToastActivationType.Foreground,
+                        },
+                        new ToastButtonDismiss()
+                    }
+                },
+                Launch = payload_json
             };
 
             var toast = new ToastNotification(toastContent.GetXml());

@@ -91,8 +91,8 @@ namespace Tindows.Externals.Tinder_Objects
                             }
 
                             // If it is an incoming message, do a toast
-                            if (m.messages.Last().from != local_id)
-                                NewMessageToast.Do(existing, m.messages.Last());
+                            //if (m.messages.Last().from != local_id)
+                            NewMessageToast.Do(existing, m.messages.Last());
 
 
                             // Propagate the changes up in the list if its not already at the top

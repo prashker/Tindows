@@ -6,6 +6,9 @@ using Windows.ApplicationModel.Activation;
 using System.Diagnostics;
 using Tindows.Models;
 using Tindows.Externals.Tinder_Objects;
+using Newtonsoft.Json;
+using Tindows.Toasts;
+using Newtonsoft.Json.Linq;
 
 namespace Tindows
 {
@@ -45,26 +48,49 @@ namespace Tindows
         }
 
         // runs only when not restored from state
-        public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
+        public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs e)
         {
             // perform long-running load
             await Task.Delay(0);
 
-            // Try to login
-            Boolean authenticated = await state.loginViaSavedToken();
-            //Boolean authenticated = false;
+            // Determine if the app was already open or not (by checking the state)
+            // Already logged in: Check for toasts
+            // Not logged in: Login, check for toasts, then do default action (navigation)
 
-            // If authentication failed, go to Facebook Login Page
-            if (!authenticated)
+            // Authenticate in all cases, then perform navigation options
+            // authenticated = true (either already logged in, or true login)
+            Boolean authenticated = await state.loginViaSavedToken();
+
+            if (authenticated)
+            {
+                // Got a toast, determine type and navigate accordingly
+                if (e is ToastNotificationActivatedEventArgs)
+                {
+                    var toastActivationArgs = e as ToastNotificationActivatedEventArgs;
+
+                    dynamic args = JsonConvert.DeserializeObject<JObject>(toastActivationArgs.Argument);
+
+                    // New message
+                    // Navigate to that toast after login
+                    if (args.source == typeof(NewMessageToast).ToString())
+                    {
+                        // args.args = conversation_id
+                        NavigationService.Navigate(typeof(Views.ConversationsPage), args.args);
+                    }
+                }
+                else
+                {
+                    // Standard login, go to superficial page
+                    NavigationService.Navigate(typeof(Views.SuperficialPage));
+                }
+            }
+            else
             {
                 // Todo: Invalid XAuth TOAST 
                 NavigationService.Navigate(typeof(Views.LoginPage));
             }
-            else
-            {
-                NavigationService.Navigate(typeof(Views.SuperficialPage));
-            }
         }
+
     }
 
 }

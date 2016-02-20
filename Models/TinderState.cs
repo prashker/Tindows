@@ -84,8 +84,10 @@ namespace Tindows.Models
         public async Task<Boolean> loginViaSavedToken()
         {
             // Prevent re-logging in
-            if (IsAuthenticated || _settings.XAuthToken == null)
+            if (_settings.XAuthToken == null)
                 return false;
+            if (IsAuthenticated)
+                return true;
 
             // Try xAuthToken, then try FB login
             Api.authenticateViaXAuthToken(_settings.XAuthToken);

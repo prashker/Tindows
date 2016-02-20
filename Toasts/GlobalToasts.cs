@@ -64,21 +64,21 @@ namespace Tindows.Toasts
                 },
             };
 
-            string textForToastTruncated = "";
+            string textForToast = "";
 
             if (message_obj.type == "gif")
             {
-                textForToastTruncated = "Sent you a Giphy";
+                textForToast = "Sent you a Giphy";
             }
             else
             {
                 var t = message_obj.message;
-                textForToastTruncated = t.Substring(0, Math.Min(25, t.Length));
+                textForToast = t;
             }
 
             visual.BodyTextLine1 = new ToastText()
             {
-                Text = textForToastTruncated + "..."
+                Text = textForToast
             };
 
             // Pass a payload as JSON to the Toast

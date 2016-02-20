@@ -22,19 +22,19 @@
                     </Controls:HamburgerButtonInfo>
                     <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:LoginPage">
                         <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Width="48" Height="48" Symbol="Home" />
+                            <SymbolIcon Width="48" Height="48" Symbol="AddFriend" />
                             <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Login/Logout" />
                         </StackPanel>
                     </Controls:HamburgerButtonInfo>
                     <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:SuperficialPage" IsEnabled="{x:Bind Path=State.IsAuthenticated, Mode=OneWay}">
                         <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Width="48" Height="48" Symbol="Home" />
+                            <SymbolIcon Width="48" Height="48" Symbol="Like" />
                             <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Match Pool" />
                         </StackPanel>
                     </Controls:HamburgerButtonInfo>
                     <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:ConversationsPage" IsEnabled="{x:Bind Path=State.IsAuthenticated, Mode=OneWay}">
                         <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Width="48" Height="48" Symbol="Home" />
+                            <SymbolIcon Width="48" Height="48" Symbol="Message" />
                             <TextBlock Margin="12,0,0,0" VerticalAlignment="Center" Text="Conversations" />
                         </StackPanel>
                     </Controls:HamburgerButtonInfo>

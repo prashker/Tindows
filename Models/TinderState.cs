@@ -178,7 +178,7 @@ namespace Tindows.Models
                 while (true)
                 {
                     // Every 3 seconds
-                    await Task.Delay(5000);
+                    await Task.Delay(3000);
 
                     if (looping)
                     {

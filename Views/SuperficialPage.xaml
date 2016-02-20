@@ -84,8 +84,8 @@
                             </Border>
                             <Border Grid.Row="2" Grid.Column="1" BorderBrush="White" BorderThickness="1,0,1,1" CornerRadius="0,0,8,8" Background="White" Padding="10,0">
                                 <RelativePanel VerticalAlignment="Center">
-                                    <TextBlock x:Name="test" Text="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
-                                    <TextBlock x:Name="age" Text="{x:Bind ViewModel.CurrentlyReviewing.Age, Mode=OneWay}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="test" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
+                                    <TextBlock x:Name="test" Text="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay, FallbackValue='No More Matches', TargetNullValue='No More Matches'}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
+                                    <TextBlock x:Name="age" Text="{x:Bind ViewModel.CurrentlyReviewing.Age, Mode=OneWay, FallbackValue='N/A', TargetNullValue='N/A'}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="test" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
                                     <TextBlock x:Name="mutualfriends" Foreground="Red" RelativePanel.AlignRightWithPanel="True">
                                         <Run Text="{x:Bind ViewModel.CurrentlyReviewing.connection_count, Mode=OneWay}" />
                                         <Run Text=" Mutual Friends" />
@@ -130,11 +130,11 @@
                 </PivotItem>
             </Pivot>
 
-            <Button Click="{x:Bind ViewModel.passCurrent}" Grid.Row="1" Grid.Column="0" x:Name="passButton" Content="Pass" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <Button IsEnabled="{x:Bind ViewModel.ReadyToSwipe, Mode=OneWay}" Click="{x:Bind ViewModel.passCurrent}" Grid.Row="1" Grid.Column="0" x:Name="passButton" Content="Pass" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="2" Grid.Column="1" VerticalAlignment="Center">
-                <Button Click="{x:Bind ViewModel.superlikeCurrent}" Content="Super Like &lt;3" HorizontalAlignment="Stretch" />
+                <Button IsEnabled="{x:Bind ViewModel.ReadyToSwipe, Mode=OneWay}" Click="{x:Bind ViewModel.superlikeCurrent}" Content="Super Like &lt;3" HorizontalAlignment="Stretch" />
             </StackPanel>
-            <Button Click="{x:Bind ViewModel.likeCurrent}" Grid.Row="2" Grid.Column="2" x:Name="likeButton" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+            <Button IsEnabled="{x:Bind ViewModel.ReadyToSwipe, Mode=OneWay}" Click="{x:Bind ViewModel.likeCurrent}" Grid.Row="2" Grid.Column="2" x:Name="likeButton" HorizontalAlignment="Stretch" VerticalAlignment="Center">
                 <TextBlock>
                     <Run Text="Like" />
                     <!--

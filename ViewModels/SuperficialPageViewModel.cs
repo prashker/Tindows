@@ -61,17 +61,17 @@ namespace Tindows.ViewModels
             }
         }
 
-        // Maintain the information on superlikes
-        private SuperLikes _superLikeStats;
-        public SuperLikes SuperLikeStats
+        // Maintain a variable to prevent user from doing actions when loading, swiping, etc.
+        private Boolean _ready;
+        public Boolean ReadyToSwipe
         {
             get
             {
-                return _superLikeStats;
+                return _ready;
             }
             set
             {
-                Set(ref _superLikeStats, value);
+                Set(ref _ready, value);
             }
         }
 
@@ -84,8 +84,6 @@ namespace Tindows.ViewModels
 
         public override async void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            m = await freshMeat();
-
             next();
         }
 
@@ -164,65 +162,73 @@ namespace Tindows.ViewModels
             return Math.Min(Math.Max(cumulativeDrag.X / -forEvery, -upTo), upTo);
         }
 
-        public async void passCurrent()
+        public async Task<Status> passCurrent()
         {
             if (CurrentlyReviewing == null)
-                return;
+                return null;
 
             // Pass on the currently reviewing
-            Status response = await TinderState.Instance.Api.pass(CurrentlyReviewing._id);
-
+            Task<Status> response = TinderState.Instance.Api.pass(CurrentlyReviewing._id);
             //PassToast.Do("You passed on " + CurrentlyReviewing.name, "", "");
-
             next();
+
+            return await response;
         }
 
-        public async void likeCurrent()
+        public async Task<LikeResponse> likeCurrent()
         {
             if (CurrentlyReviewing == null)
-                return;
+                return null;
 
             // Todo: Hold onto the response for other UI related stuff (ex: showing likes remaining)
-            LikeResponse response = await TinderState.Instance.Api.like(CurrentlyReviewing._id);
-
+            Task<LikeResponse> response = TinderState.Instance.Api.like(CurrentlyReviewing._id);
             next();
+
+            return await response;
         }
 
-        public async void superlikeCurrent()
+        public async Task<LikeResponse> superlikeCurrent()
         {
             if (CurrentlyReviewing == null)
-                return;
+                return null;
 
-            LikeResponse response = await TinderState.Instance.Api.superlike(CurrentlyReviewing._id);
-
-            if (response.IsSuperLike)
-            {
-                SuperLikeStats = response.super_likes;
-            }
-
+            Task<LikeResponse> response = TinderState.Instance.Api.superlike(CurrentlyReviewing._id);
             next();
+
+            return await response;
         }
 
         private async void next()
         {
+            ReadyToSwipe = false;
+
+            if (m.Count == 0)
+            {
+                m = await freshMeat();
+            }
+
             if (m.Count > 0)
             {
                 // Given a candidate, prepare ViewModel for review
                 CurrentlyReviewing = m.Dequeue();
 
                 // Prepare next in line
-                if (m.Count > 0) {
-                    NextInLine = m.Dequeue();
+                if (m.Count > 0)
+                {
+                    NextInLine = m.Peek();
                 }
                 else
                 {
                     NextInLine = null;
                 }
+
+                ReadyToSwipe = true;
             }
             else
             {
-                m = await freshMeat();
+                CurrentlyReviewing = null;
             }
+
         }
 
         private async Task<Queue<AdvancedMatchInfo>> freshMeat()

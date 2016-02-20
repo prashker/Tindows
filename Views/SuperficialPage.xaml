@@ -42,7 +42,7 @@
                 <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
 
-            <Pivot Grid.Row="0" Grid.ColumnSpan="3">
+            <Pivot x:Name="SuperficialPivot" Grid.Row="0" Grid.ColumnSpan="3">
                 <PivotItem Header="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay, FallbackValue='No More To Review'}">
                     <Grid Grid.Row="0" Grid.ColumnSpan="3">
                         <Grid.ColumnDefinitions>
@@ -58,12 +58,12 @@
 
                         <!-- Resize cropping of the photo, from the center out -->
 
-                        <Grid Grid.Column="1" Grid.Row="1"
+                        <Grid x:Name="YesOrNoDisplay" Grid.Column="1" Grid.Row="1"
                        ManipulationMode="All" 
                        ManipulationStarted="{x:Bind ViewModel.photoDragStart}" 
                        ManipulationDelta="{x:Bind ViewModel.photoDragged}" 
                        ManipulationCompleted="{x:Bind ViewModel.photoDragEnd}" 
-                       RenderTransformOrigin="0.5,0.5">
+                       RenderTransformOrigin="0.5,0.5" Tapped="YesOrNoDisplay_Tapped">
                             <Grid.RenderTransform>
                                 <CompositeTransform Rotation="0" TranslateX="0" TranslateY="0"/>
                             </Grid.RenderTransform>

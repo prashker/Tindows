@@ -87,7 +87,7 @@
                                     <TextBlock x:Name="test" Text="{x:Bind ViewModel.CurrentlyReviewing.name, Mode=OneWay, FallbackValue='No More Matches', TargetNullValue='No More Matches'}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
                                     <TextBlock x:Name="age" Text="{x:Bind ViewModel.CurrentlyReviewing.Age, Mode=OneWay, FallbackValue='N/A', TargetNullValue='N/A'}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="test" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
                                     <TextBlock x:Name="mutualfriends" Foreground="Red" RelativePanel.AlignRightWithPanel="True">
-                                        <Run Text="{x:Bind ViewModel.CurrentlyReviewing.connection_count, Mode=OneWay}" />
+                                        <Run Text="{x:Bind ViewModel.CurrentlyReviewing.common_connections.Count, Mode=OneWay, FallbackValue='0'}" />
                                         <Run Text=" Mutual Friends" />
                                     </TextBlock>
                                 </RelativePanel>
@@ -116,7 +116,7 @@
                                     <TextBlock x:Name="PREtest" Text="{x:Bind ViewModel.NextInLine.name, Mode=OneWay, FallbackValue='No More Matches', TargetNullValue='No More Matches'}" Foreground="Black" FontFamily="Roboto" FontSize="15" />
                                     <TextBlock x:Name="PREage" Text="{x:Bind ViewModel.NextInLine.Age, Mode=OneWay, FallbackValue='N/A', TargetNullValue='N/A'}" Foreground="Black" RelativePanel.AlignRightWith="" RelativePanel.RightOf="PREtest" Margin="10,0,0,0" FontFamily="Roboto" FontWeight="Bold" FontSize="15" />
                                     <TextBlock x:Name="PREmutualfriends" Foreground="Red" RelativePanel.AlignRightWithPanel="True">
-                                        <Run Text="{x:Bind ViewModel.NextInLine.connection_count, Mode=OneWay}" />
+                                        <Run Text="{x:Bind ViewModel.NextInLine.common_connections.Count, Mode=OneWay, FallbackValue='0'}" />
                                         <Run Text=" Mutual Friends" />
                                     </TextBlock>
                                 </RelativePanel>

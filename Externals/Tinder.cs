@@ -28,10 +28,10 @@ namespace Tindows.Externals
     public class TinderAPI
     {
         // Headers - Spoofing Tinder Android
-        private const string UserAgent = "Tinder Android Version 4.4.4";
+        private const string UserAgent = "Tinder/4.6.1 (iPhone; iOS 9.0.1; Scale/2.00)";
         private const string AuthHeaderKey = "X-Auth-Token";
-        private const string AppVersion = "839";
-        private const string OSVersion = "22";
+        private const string AppVersion = "371";
+        private const string OSVersion = "90000000001";
         private const string Platform = "android";
 
         // API

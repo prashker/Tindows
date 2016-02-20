@@ -40,7 +40,8 @@ namespace Tindows.Externals.Tinder_Objects
         /// </summary>
         /// <param name="newUpdate">The update to absorb</param>
         /// <param name="silent">Do not notify externally of changes</param>
-        public void absorb(Updates newUpdate, Boolean silent)
+        /// <param name="local_id">The ID associated with the local user</param>
+        public void absorb(Updates newUpdate, Boolean silent, string local_id)
         {
             // Given an update, augment the existing one
             // Case 1 - isMatch() and hasMessages() - BACKLOG
@@ -88,6 +89,11 @@ namespace Tindows.Externals.Tinder_Objects
 
                                 existing.messages.Add(message);
                             }
+
+                            // If it is an incoming message, do a toast
+                            if (m.messages.Last().from != local_id)
+                                NewMessageToast.Do(existing, m.messages.Last());
+
 
                             // Propagate the changes up in the list if its not already at the top
                             //if (idx != 0)

@@ -170,7 +170,7 @@ namespace Tindows.Models
 
             // Set the initial state, without propagating the updates
             Updates = new Updates();
-            Updates.absorb(await getLatestUpdates(), true);
+            Updates.absorb(await getLatestUpdates(), true, Me._id);
 
             if (!looping)
             {
@@ -187,7 +187,7 @@ namespace Tindows.Models
                         // Merge matches from both Updates
                         // New messages are intersperced in here
 
-                        Updates.absorb(newUpdate, false);
+                        Updates.absorb(newUpdate, false, Me._id);
                     }
                 }
             }

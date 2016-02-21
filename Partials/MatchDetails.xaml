@@ -55,12 +55,12 @@
                         <DataTemplate x:DataType="models:CommonConnection">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock Text="">
-                                    <Run Text="{x:Bind name, Mode=OneTime}" />
+                                    <Run Text="{x:Bind name, Mode=OneWay}" />
                                     <Run Text=" (" />
-                                    <Run Text="{x:Bind degree, Mode=OneTime}" />
+                                    <Run Text="{x:Bind degree, Mode=OneWay}" />
                                     <Run Text=" degree) " />
                                 </TextBlock>
-                                <Image Source="{x:Bind photo.small}" />
+                                <Image Source="{x:Bind photo.small, Mode=OneWay}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>

@@ -115,10 +115,10 @@
 
                 <TextBlock>
                      <Run Text="Username: " />
-                     <Run Text="{x:Bind instagram.username, Mode=OneWay}" />
+                     <Run Text="{Binding instagram.username}" />
                 </TextBlock>
 
-                <ListView ItemsSource="{x:Bind instagram.photos, Mode=OneWay}">
+                <ListView ItemsSource="{Binding instagram.photos}">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="models:InstagramPhotos">
                             <Image Source="{x:Bind image, Mode=OneWay}" />
